@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The First Choice Group — Get Your Cash Offer in Minutes</title>
+<meta name="description" content="Sell your house for cash — a preliminary offer range in about 60 seconds, priced against real comparable sales. No fees, no repairs, no showings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<!-- ================= HERO ================= -->
+<div style="background:radial-gradient(1000px 480px at 80% 0%,#12345A66,transparent),#081426">
+<div class="cols pad-sec" style="max-width:1240px;margin:0 auto;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:56px;padding:72px 32px 64px;align-items:center">
+  <div style="display:flex;flex-direction:column;gap:22px;animation:fadeUp .6s ease both">
+    <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;border:1px solid #5AB8F544;background:#5AB8F514;color:#7ACBFF;font:700 12px 'Manrope',sans-serif;padding:7px 14px;border-radius:999px;letter-spacing:.05em">CASH OFFERS · ANY PROPERTY · ANY CONDITION</div>
+    <h1 class="hero-title" style="margin:0;font:800 54px/1.07 'Sora',sans-serif;color:#fff;letter-spacing:-.02em;text-wrap:pretty">Get your cash offer in minutes — <span style="color:#5AB8F5">not weeks.</span></h1>
+    <div style="font:500 18px/1.65 'Manrope',sans-serif;color:#9FB0C9;max-width:520px">Enter your address and see a preliminary offer range in about 60 seconds — priced against real comparable sales. No fees, no repairs, no showings.</div>
+    <div style="display:flex;gap:8px;background:#0E2240;border:1px solid #ffffff1f;border-radius:14px;padding:8px;box-shadow:0 20px 50px rgba(0,0,0,.35);max-width:560px">
+      <span style="align-self:center;color:#5AB8F5;padding-left:12px">&#9673;</span>
+      <input id="top-address" data-addr placeholder="Start typing your address…" style="flex:1;background:transparent;border:none;outline:none;padding:0 6px;color:#fff;font:500 15px 'Manrope',sans-serif">
+      <span id="top-go" data-hover="background:#7ACBFF" style="background:#5AB8F5;color:#081426;font:700 15px 'Manrope',sans-serif;padding:14px 24px;border-radius:10px;white-space:nowrap;cursor:pointer">Get My Offer →</span>
+    </div>
+    <div id="top-err" style="display:none;font:600 12.5px 'Manrope',sans-serif;color:#FF9B9B;margin-top:-14px">Please select your full property address to continue.</div>
+    <div style="display:flex;gap:22px;align-items:center;font:600 13px 'Manrope',sans-serif;color:#9FB0C9;flex-wrap:wrap">
+      <span><span style="color:#F5C044">★★★★★</span> <b style="color:#fff">4.9</b> on Google</span>
+      <span style="display:flex;align-items:center;gap:7px"><span style="background:#00548F;color:#fff;font:800 12px 'Sora',sans-serif;padding:4px 8px;border-radius:5px">BBB</span><b style="color:#fff">A+</b> Accredited</span>
+      <span><b style="color:#fff">1,300+</b> homeowners helped</span>
+    </div>
+  </div>
+
+  <!-- Instant Offer Estimator card -->
+  <div style="background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #ffffff1c;border-radius:20px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.45),0 0 0 6px #37C8E00d;display:flex;flex-direction:column;gap:18px;animation:fadeUp .6s .15s ease both">
+    <div style="display:flex;justify-content:space-between;align-items:center"><div style="font:700 14px 'Sora',sans-serif;color:#fff">Instant Offer Estimator</div><div style="display:flex;gap:5px"><span style="width:22px;height:4px;border-radius:2px;background:#5AB8F5"></span><span style="width:22px;height:4px;border-radius:2px;background:#5AB8F5"></span><span style="width:22px;height:4px;border-radius:2px;background:#ffffff26"></span></div></div>
+    <input id="he-address" data-addr placeholder="Start typing your property address…" style="background:#081426;border:1px solid #ffffff1f;border-radius:12px;padding:14px 16px;font:500 14px 'Manrope',sans-serif;color:#fff;outline:none">
+    <div id="he-err" style="display:none;font:600 12px 'Manrope',sans-serif;color:#FF9B9B;margin-top:-8px">Please select your full property address first.</div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+      <select id="he-units" style="background:#081426;border:1px solid #ffffff1f;border-radius:12px;padding:13px 12px;font:600 13px 'Manrope',sans-serif;color:#fff;outline:none">
+        <option value="1">Single-family</option><option value="0">Condo / townhome</option><option value="2">2 units</option><option value="3">3 units</option><option value="4">4 units</option><option value="5">5+ units</option>
+      </select>
+      <select id="he-cond" style="background:#081426;border:1px solid #ffffff1f;border-radius:12px;padding:13px 12px;font:600 13px 'Manrope',sans-serif;color:#fff;outline:none">
+        <option value="1">Move-in ready</option><option value="0.88" selected>Some repairs</option><option value="0.74">Major repairs</option>
+      </select>
+      <input type="number" min="200" id="he-sqft" placeholder="Livable sq ft" style="background:#081426;border:1px solid #ffffff1f;border-radius:12px;padding:13px 12px;font:600 13px 'Manrope',sans-serif;color:#fff;outline:none">
+      <input type="number" min="0" id="he-lot" placeholder="Lot sq ft" style="background:#081426;border:1px solid #ffffff1f;border-radius:12px;padding:13px 12px;font:600 13px 'Manrope',sans-serif;color:#fff;outline:none">
+    </div>
+    <div id="he-single" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+      <select id="he-beds" style="background:#081426;border:1px solid #ffffff1f;border-radius:12px;padding:13px 12px;font:600 13px 'Manrope',sans-serif;color:#fff;outline:none">
+        <option value="1">1 bed</option><option value="2">2 beds</option><option value="3" selected>3 beds</option><option value="4">4 beds</option><option value="5">5+ beds</option>
+      </select>
+      <select id="he-baths" style="background:#081426;border:1px solid #ffffff1f;border-radius:12px;padding:13px 12px;font:600 13px 'Manrope',sans-serif;color:#fff;outline:none">
+        <option value="1">1 bath</option><option value="1.5">1.5 baths</option><option value="2" selected>2 baths</option><option value="2.5">2.5 baths</option><option value="3">3+ baths</option>
+      </select>
+    </div>
+    <div id="he-multi" style="display:none;flex-direction:column;gap:8px">
+      <div style="font:700 10.5px 'Manrope',sans-serif;color:#7ADCEC;letter-spacing:.08em">BEDS &amp; BATHS PER UNIT</div>
+      <div id="he-mix"></div>
+    </div>
+    <div id="he-result" style="display:none;flex-direction:column;gap:8px">
+      <div style="border-top:1px dashed #ffffff1f;padding-top:16px;display:flex;flex-direction:column;gap:8px">
+        <div style="font:600 11px 'Manrope',sans-serif;color:#7ADCEC;letter-spacing:.08em">PRELIMINARY CASH OFFER RANGE</div>
+        <div style="font:800 34px 'Sora',sans-serif;color:#fff"><span id="he-lo"></span> – <span id="he-hi"></span></div>
+        <div style="height:8px;border-radius:4px;background:#ffffff14;position:relative"><div style="position:absolute;left:18%;right:22%;top:0;bottom:0;border-radius:4px;background:linear-gradient(90deg,#37C8E0,#5AB8F5)"></div></div>
+        <div style="display:flex;justify-content:space-between;font:600 11px 'Manrope',sans-serif;color:#9FB0C9"><span>Based on <span id="he-comps"></span> nearby comparable sales</span><span style="color:#8DA0BC">Preliminary — not an offer</span></div>
+      </div>
+      <a href="estimator.html" style="font:700 13px 'Manrope',sans-serif;color:#7ACBFF;text-align:center;text-decoration:none">Refine it in the full estimator — condition, units, year built →</a>
+    </div>
+    <span id="he-run" data-hover="background:#7ACBFF" style="background:#5AB8F5;color:#081426;font:700 15px 'Manrope',sans-serif;padding:15px;border-radius:12px;text-align:center;cursor:pointer">Get My Instant Range →</span>
+    <div id="he-big" style="display:none;flex-direction:column;gap:18px">
+      <a href="contact.html" data-hover="background:#7ACBFF;color:#081426" style="background:#5AB8F5;color:#081426;font:700 15px 'Manrope',sans-serif;padding:15px;border-radius:12px;text-align:center;text-decoration:none">Speak to a Specialist →</a>
+      <div style="font:600 11.5px 'Manrope',sans-serif;color:#9FB0C9;text-align:center">5+ unit properties get a custom underwrite — a specialist will quote it personally within 24 hours.</div>
+    </div>
+    <div style="font:600 11px 'Manrope',sans-serif;color:#7A8DA9;text-align:center">No fees · No pressure · No obligation</div>
+  </div>
+</div>
+</div>
+
+<!-- ================= FIVE WAYS TO SELL ================= -->
+<div style="background:linear-gradient(180deg,#F2F7FC,#DDEBF8)">
+<div class="pad-sec" style="max-width:1240px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:32px">
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:720px">
+    <div style="font:700 12px 'Manrope',sans-serif;color:#1B7FD4;letter-spacing:.12em">WHATEVER THE SITUATION</div>
+    <h2 class="sec-title" style="margin:0;font:800 36px/1.15 'Sora',sans-serif;color:#0A1E38;letter-spacing:-.01em;text-wrap:pretty">Five ways to sell. Pick yours.</h2>
+    <div style="font:500 15px/1.7 'Manrope',sans-serif;color:#5A6B84">Foreclosure, probate, repairs, a fast move — or no reason at all. Each choice below opens its own playbook.</div>
+  </div>
+  <div class="cols" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+    <a href="just-selling.html" data-hover="border:1px solid #1B7FD4;transform:translateY(-2px)" style="grid-column:1/-1;background:#fff;border:1px solid #0A1E3814;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;box-shadow:0 6px 18px rgba(10,30,56,.06)"><span style="display:flex;flex-direction:column;gap:3px"><span style="font:700 15px 'Sora',sans-serif;color:#0A1E38">Just looking to sell</span><span style="font:500 12.5px 'Manrope',sans-serif;color:#5A6B84">No crisis required — the simple, no-pressure path</span></span><span style="width:34px;height:34px;border-radius:50%;background:#0A1E38;color:#fff;display:flex;align-items:center;justify-content:center;font:700 15px 'Manrope',sans-serif;flex-shrink:0">→</span></a>
+    <a href="foreclosure.html" data-hover="border:1px solid #1B7FD4;transform:translateY(-2px)" style="background:#fff;border:1px solid #0A1E3814;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;box-shadow:0 6px 18px rgba(10,30,56,.06)"><span style="display:flex;flex-direction:column;gap:3px"><span style="font:700 15px 'Sora',sans-serif;color:#0A1E38">Facing foreclosure</span><span style="font:500 12.5px 'Manrope',sans-serif;color:#5A6B84">Close before the auction — see how</span></span><span style="width:34px;height:34px;border-radius:50%;background:#0A1E38;color:#fff;display:flex;align-items:center;justify-content:center;font:700 15px 'Manrope',sans-serif;flex-shrink:0">→</span></a>
+    <a href="repairs.html" data-hover="border:1px solid #1B7FD4;transform:translateY(-2px)" style="background:#fff;border:1px solid #0A1E3814;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;box-shadow:0 6px 18px rgba(10,30,56,.06)"><span style="display:flex;flex-direction:column;gap:3px"><span style="font:700 15px 'Sora',sans-serif;color:#0A1E38">Too many repairs</span><span style="font:500 12.5px 'Manrope',sans-serif;color:#5A6B84">Sell 100% as-is — see what that means</span></span><span style="width:34px;height:34px;border-radius:50%;background:#0A1E38;color:#fff;display:flex;align-items:center;justify-content:center;font:700 15px 'Manrope',sans-serif;flex-shrink:0">→</span></a>
+    <a href="probate.html" data-hover="border:1px solid #1B7FD4;transform:translateY(-2px)" style="background:#fff;border:1px solid #0A1E3814;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;box-shadow:0 6px 18px rgba(10,30,56,.06)"><span style="display:flex;flex-direction:column;gap:3px"><span style="font:700 15px 'Sora',sans-serif;color:#0A1E38">Inherited / probate</span><span style="font:500 12.5px 'Manrope',sans-serif;color:#5A6B84">We work with the court — see the process</span></span><span style="width:34px;height:34px;border-radius:50%;background:#0A1E38;color:#fff;display:flex;align-items:center;justify-content:center;font:700 15px 'Manrope',sans-serif;flex-shrink:0">→</span></a>
+    <a href="relocation.html" data-hover="border:1px solid #1B7FD4;transform:translateY(-2px)" style="background:#fff;border:1px solid #0A1E3814;border-radius:16px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;text-decoration:none;box-shadow:0 6px 18px rgba(10,30,56,.06)"><span style="display:flex;flex-direction:column;gap:3px"><span style="font:700 15px 'Sora',sans-serif;color:#0A1E38">Relocation / divorce</span><span style="font:500 12.5px 'Manrope',sans-serif;color:#5A6B84">Your date, guaranteed — see the plan</span></span><span style="width:34px;height:34px;border-radius:50%;background:#0A1E38;color:#fff;display:flex;align-items:center;justify-content:center;font:700 15px 'Manrope',sans-serif;flex-shrink:0">→</span></a>
+  </div>
+</div>
+</div>
+
+<!-- ================= STAT BAND ================= -->
+<div style="border-top:1px solid #ffffff12;border-bottom:1px solid #ffffff12;background:#0B1B33">
+<div class="cols-2up pad-sec" style="max-width:1240px;margin:0 auto;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding:40px 32px">
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:800 36px 'Sora',sans-serif;color:#fff">1,300+</div><div style="font:600 13px 'Manrope',sans-serif;color:#8DA0BC">Homeowners helped</div></div>
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:800 36px 'Sora',sans-serif;color:#fff">$23M+</div><div style="font:600 13px 'Manrope',sans-serif;color:#8DA0BC">Paid to sellers</div></div>
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:800 36px 'Sora',sans-serif;color:#5AB8F5">26</div><div style="font:600 13px 'Manrope',sans-serif;color:#8DA0BC">Avg. days to close</div></div>
+  <div style="display:flex;flex-direction:column;gap:4px"><div style="font:800 36px 'Sora',sans-serif;color:#fff">4.9★</div><div style="font:600 13px 'Manrope',sans-serif;color:#8DA0BC">300+ five-star reviews</div></div>
+</div>
+</div>
+
+<!-- ================= HOW IT WORKS ================= -->
+<div style="background:linear-gradient(135deg,#0F2A4E,#164A7A);border-top:1px solid #ffffff14;border-bottom:1px solid #ffffff14">
+<div class="pad-sec" style="max-width:1240px;margin:0 auto;padding:80px 32px;display:flex;flex-direction:column;gap:40px">
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:640px">
+    <div style="font:700 12px 'Manrope',sans-serif;color:#7ADCEC;letter-spacing:.12em">HOW IT WORKS</div>
+    <h2 class="sec-title" style="margin:0;font:800 38px/1.15 'Sora',sans-serif;color:#fff;letter-spacing:-.01em">Three steps. Zero hassle.</h2>
+  </div>
+  <div class="cols" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+    <div style="background:#ffffff0f;border:1px solid #ffffff26;border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:14px;backdrop-filter:blur(4px)"><div style="width:44px;height:44px;border-radius:50%;background:#7ADCEC;color:#0A1E38;display:flex;align-items:center;justify-content:center;font:800 17px 'Sora',sans-serif">1</div><div style="font:700 20px 'Sora',sans-serif;color:#fff">Tell us about your home</div><div style="font:500 14.5px/1.65 'Manrope',sans-serif;color:#C5D7EC">Enter your address — the estimator returns a preliminary range in about a minute, then a specialist confirms the details on a quick call.</div></div>
+    <div style="background:#ffffff0f;border:1px solid #ffffff26;border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:14px;backdrop-filter:blur(4px)"><div style="width:44px;height:44px;border-radius:50%;background:#7ADCEC;color:#0A1E38;display:flex;align-items:center;justify-content:center;font:800 17px 'Sora',sans-serif">2</div><div style="font:700 20px 'Sora',sans-serif;color:#fff">Get a fair cash offer</div><div style="font:500 14.5px/1.65 'Manrope',sans-serif;color:#C5D7EC">A firm, no-obligation offer within 24 hours. No fees, no commissions, no financing contingencies.</div></div>
+    <div style="background:#ffffff0f;border:1px solid #ffffff26;border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:14px;backdrop-filter:blur(4px)"><div style="width:44px;height:44px;border-radius:50%;background:#7ADCEC;color:#0A1E38;display:flex;align-items:center;justify-content:center;font:800 17px 'Sora',sans-serif">3</div><div style="font:700 20px 'Sora',sans-serif;color:#fff">Get paid on your date</div><div style="font:500 14.5px/1.65 'Manrope',sans-serif;color:#C5D7EC">Pick the closing date — as fast as 10 days or months out. We handle everything and pay all closing costs.</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ================= WHY CHOOSE US ================= -->
+<div style="background:#0B1B33;border-top:1px solid #ffffff12;border-bottom:1px solid #ffffff12">
+<div class="cols pad-sec" style="max-width:1240px;margin:0 auto;padding:80px 32px;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:56px;align-items:center">
+  <div style="position:relative;height:420px;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#0E2240,#164A7A);display:flex;align-items:center;justify-content:center;border:1px solid #ffffff14">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;color:#5AB8F5;text-align:center;padding:24px">
+      <span style="font-size:40px">&#127968;</span>
+      <span style="font:600 13px 'Manrope',sans-serif;color:#7A8DA9">Lifestyle / closing-day photo</span>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div style="font:700 12px 'Manrope',sans-serif;color:#5AB8F5;letter-spacing:.12em">WHY CHOOSE US</div>
+    <h2 class="sec-title" style="margin:0;font:800 38px/1.15 'Sora',sans-serif;color:#fff;letter-spacing:-.01em;text-wrap:pretty">Not another "we buy houses" company.</h2>
+    <div style="font:500 16px/1.7 'Manrope',sans-serif;color:#9FB0C9">We're a professional real estate solutions and redevelopment company built on three uncompromising principles: People, Service, and Integrity.</div>
+    <div class="cols-2up" style="grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+      <div style="background:#081426;border:1px solid #ffffff14;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:6px"><div style="font:700 15px 'Sora',sans-serif;color:#fff">We handle everything</div><div style="font:500 13px/1.6 'Manrope',sans-serif;color:#8DA0BC">Paperwork, title, cleanout — even the belongings you leave behind.</div></div>
+      <div style="background:#081426;border:1px solid #ffffff14;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:6px"><div style="font:700 15px 'Sora',sans-serif;color:#fff">No fees or commissions</div><div style="font:500 13px/1.6 'Manrope',sans-serif;color:#8DA0BC">We pay all closing costs. The offer is what you keep.</div></div>
+      <div style="background:#081426;border:1px solid #ffffff14;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:6px"><div style="font:700 15px 'Sora',sans-serif;color:#fff">Close on your timeline</div><div style="font:500 13px/1.6 'Manrope',sans-serif;color:#8DA0BC">10 days or 6 months — you choose the date.</div></div>
+      <div style="background:#081426;border:1px solid #ffffff14;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:6px"><div style="font:700 15px 'Sora',sans-serif;color:#fff">Real market expertise</div><div style="font:500 13px/1.6 'Manrope',sans-serif;color:#8DA0BC">Every offer priced street by street, wherever your property is.</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ================= OUR EDGE ================= -->
+<div class="pad-sec" style="max-width:1240px;margin:0 auto;padding:80px 32px;display:flex;flex-direction:column;gap:40px">
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:12px"><div style="font:700 12px 'Manrope',sans-serif;color:#5AB8F5;letter-spacing:.12em">OUR EDGE</div><h2 class="sec-title" style="margin:0;font:800 38px/1.15 'Sora',sans-serif;color:#fff;letter-spacing:-.01em">Technology other buyers don't have.</h2></div>
+  </div>
+  <div class="cols" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+    <a href="estimator.html" data-hover="border:1px solid #5AB8F588;transform:translateY(-3px)" style="background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #5AB8F533;border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:12px;text-decoration:none"><div style="width:44px;height:44px;border-radius:12px;background:#5AB8F51f;display:flex;align-items:center;justify-content:center;color:#5AB8F5;font:800 18px 'Sora',sans-serif">⚡</div><div style="font:700 19px 'Sora',sans-serif;color:#fff">Instant offer estimate</div><div style="font:500 14px/1.65 'Manrope',sans-serif;color:#9FB0C9">A preliminary cash-offer range in ~60 seconds, priced against live Zillow® and MLS comps in your zip code.</div><div style="font:700 13px 'Manrope',sans-serif;color:#7ACBFF;margin-top:auto">Try the estimator →</div></a>
+    <div style="background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #ffffff14;border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:12px"><div style="width:44px;height:44px;border-radius:12px;background:#5AB8F51f;display:flex;align-items:center;justify-content:center;color:#5AB8F5;font:800 18px 'Sora',sans-serif">&#9672;</div><div style="font:700 19px 'Sora',sans-serif;color:#fff">24/7 AI assistant</div><div style="font:500 14px/1.65 'Manrope',sans-serif;color:#9FB0C9">Answers about foreclosure, probate, timelines, and fees at 2 a.m. — then hands you to a real specialist.</div><div style="font:700 13px 'Manrope',sans-serif;color:#7ACBFF;margin-top:auto">Open the chat (bottom right) →</div></div>
+    <a href="offer.html" data-hover="border:1px solid #5AB8F588;transform:translateY(-3px)" style="background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #ffffff14;border-radius:18px;padding:30px;display:flex;flex-direction:column;gap:12px;text-decoration:none"><div style="width:44px;height:44px;border-radius:12px;background:#5AB8F51f;display:flex;align-items:center;justify-content:center;color:#5AB8F5;font:800 18px 'Sora',sans-serif">&#129517;</div><div style="font:700 19px 'Sora',sans-serif;color:#fff">Smart intake</div><div style="font:500 14px/1.65 'Manrope',sans-serif;color:#9FB0C9">Our questions adapt to your situation — foreclosure, inheritance, tired landlord — so you never fill a generic 40-field form.</div><div style="font:700 13px 'Manrope',sans-serif;color:#7ACBFF;margin-top:auto">Start intake →</div></a>
+  </div>
+</div>
+
+<!-- ================= TESTIMONIALS ================= -->
+<div style="background:linear-gradient(180deg,#F2F7FC,#DDEBF8)">
+<div class="pad-sec" style="max-width:1240px;margin:0 auto;padding:80px 32px;display:flex;flex-direction:column;gap:40px">
+  <div style="display:flex;flex-direction:column;gap:12px"><div style="font:700 12px 'Manrope',sans-serif;color:#1B7FD4;letter-spacing:.12em">TESTIMONIALS</div><h2 class="sec-title" style="margin:0;font:800 38px/1.15 'Sora',sans-serif;color:#0A1E38;letter-spacing:-.01em">Sellers who were in your shoes.</h2></div>
+  <div class="cols" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+    <div style="background:#fff;border:1px solid #0A1E3814;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 6px 18px rgba(10,30,56,.06)"><div style="color:#E8A33D;font-size:15px;letter-spacing:2px">★★★★★</div><div style="font:500 14.5px/1.7 'Manrope',sans-serif;color:#41506A">"I lived in California with a property in New Jersey falling apart from bad tenants. They were honest in their entire approach, offered a better price than I expected, and saved me from a disaster."</div><div style="margin-top:auto;display:flex;flex-direction:column;gap:2px"><div style="font:700 14px 'Sora',sans-serif;color:#0A1E38">The Martinez Family</div><div style="font:600 12px 'Manrope',sans-serif;color:#5A6B84">Sold in Newark, NJ</div></div></div>
+    <div style="background:#fff;border:1px solid #0A1E3814;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 6px 18px rgba(10,30,56,.06)"><div style="color:#E8A33D;font-size:15px;letter-spacing:2px">★★★★★</div><div style="font:500 14.5px/1.7 'Manrope',sans-serif;color:#41506A">"Responsive any time I called, kept me updated the entire process. We closed in two weeks, they covered all closing costs, and I didn't pay a single dollar in fees."</div><div style="margin-top:auto;display:flex;flex-direction:column;gap:2px"><div style="font:700 14px 'Sora',sans-serif;color:#0A1E38">Kelsi J.</div><div style="font:600 12px 'Manrope',sans-serif;color:#5A6B84">Sold in Stamford, CT</div></div></div>
+    <div style="background:#fff;border:1px solid #0A1E3814;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 6px 18px rgba(10,30,56,.06)"><div style="color:#E8A33D;font-size:15px;letter-spacing:2px">★★★★★</div><div style="font:500 14.5px/1.7 'Manrope',sans-serif;color:#41506A">"Months wasted with an agent, always 'one week from closing.' First Choice closed in 3 weeks — and I netted more selling as-is than I would have after the 6% commission."</div><div style="margin-top:auto;display:flex;flex-direction:column;gap:2px"><div style="font:700 14px 'Sora',sans-serif;color:#0A1E38">Zohar Levy</div><div style="font:600 12px 'Manrope',sans-serif;color:#5A6B84">Sold in Brooklyn, NY</div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ================= FINAL CTA ================= -->
+<div class="pad-sec" style="max-width:1240px;margin:0 auto;padding:0 32px 80px">
+  <div style="background:linear-gradient(135deg,#0E2240,#12345A);border:1px solid #5AB8F533;border-radius:24px;padding:64px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+    <h2 style="margin:0;font:800 40px/1.1 'Sora',sans-serif;color:#fff;letter-spacing:-.01em;max-width:640px;text-wrap:pretty">Ready to see your number?</h2>
+    <div style="font:500 16px/1.6 'Manrope',sans-serif;color:#9FB0C9;max-width:520px">No obligation. No fees. Just a real cash offer range in about 60 seconds.</div>
+    <a href="offer.html" data-hover="background:#7ACBFF;color:#081426" style="background:#5AB8F5;color:#081426;font:700 16px 'Manrope',sans-serif;padding:17px 36px;border-radius:13px;text-decoration:none;box-shadow:0 14px 40px rgba(90,184,245,.35)">Get Your Cash Offer →</a>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script>
+(function () {
+  function logLead(address, source) {
+    try {
+      var leads = JSON.parse(localStorage.getItem('fc-crm-leads') || '[]');
+      leads.push({ address: address, source: source, ts: new Date().toISOString() });
+      localStorage.setItem('fc-crm-leads', JSON.stringify(leads)); // CRM sync point — swap for real endpoint
+    } catch (e) {}
+  }
+
+  // -- Top hero address bar -> comprehensive intake form (requires full address) --
+  var topAddr = document.getElementById('top-address');
+  var topErr = document.getElementById('top-err');
+  function goEstimate() {
+    if (!window.FCG || !FCG.addressValid(topAddr)) { if (topErr) topErr.style.display = 'block'; topAddr.focus(); return; }
+    if (topErr) topErr.style.display = 'none';
+    var a = topAddr.value.trim();
+    logLead(a, 'hero-address-bar');
+    try { localStorage.setItem('fc-prefill-address', a); } catch (e) {}
+    window.location.href = 'offer.html';
+  }
+  document.getElementById('top-go').addEventListener('click', goEstimate);
+  topAddr.addEventListener('keydown', function (e) { if (e.key === 'Enter') goEstimate(); });
+  topAddr.addEventListener('change', function () { if (topErr) topErr.style.display = 'none'; });
+
+  // -- Instant offer estimator card --
+  var heErr = document.getElementById('he-err');
+  var els = {
+    addr: document.getElementById('he-address'),
+    units: document.getElementById('he-units'),
+    cond: document.getElementById('he-cond'),
+    sqft: document.getElementById('he-sqft'),
+    lot: document.getElementById('he-lot'),
+    beds: document.getElementById('he-beds'),
+    baths: document.getElementById('he-baths'),
+    single: document.getElementById('he-single'),
+    multi: document.getElementById('he-multi'),
+    mix: document.getElementById('he-mix'),
+    result: document.getElementById('he-result'),
+    lo: document.getElementById('he-lo'),
+    hi: document.getElementById('he-hi'),
+    comps: document.getElementById('he-comps'),
+    run: document.getElementById('he-run'),
+    big: document.getElementById('he-big')
+  };
+  var ran = false;
+
+  function bedOpts(sel) {
+    return '<option value="1"' + (sel === '1' ? ' selected' : '') + '>1 bed</option>' +
+      '<option value="2"' + (sel === '2' ? ' selected' : '') + '>2 beds</option>' +
+      '<option value="3"' + (sel === '3' ? ' selected' : '') + '>3 beds</option>' +
+      '<option value="4"' + (sel === '4' ? ' selected' : '') + '>4 beds</option>' +
+      '<option value="5"' + (sel === '5' ? ' selected' : '') + '>5+ beds</option>';
+  }
+  function bathOpts(sel) {
+    return '<option value="1"' + (sel === '1' ? ' selected' : '') + '>1 bath</option>' +
+      '<option value="1.5"' + (sel === '1.5' ? ' selected' : '') + '>1.5 baths</option>' +
+      '<option value="2"' + (sel === '2' ? ' selected' : '') + '>2 baths</option>' +
+      '<option value="2.5"' + (sel === '2.5' ? ' selected' : '') + '>2.5 baths</option>' +
+      '<option value="3"' + (sel === '3' ? ' selected' : '') + '>3+ baths</option>';
+  }
+
+  function buildMix(n) {
+    var count = Math.min(n, 4);
+    var html = '';
+    for (var i = 0; i < count; i++) {
+      html += '<div style="display:grid;grid-template-columns:60px minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:center;margin-bottom:8px">' +
+        '<span style="font:700 12px \'Sora\',sans-serif;color:#9FB0C9">Unit ' + (i + 1) + '</span>' +
+        '<select data-mix="beds" style="background:#081426;border:1px solid #ffffff1f;border-radius:10px;padding:10px 12px;font:600 12.5px \'Manrope\',sans-serif;color:#fff;outline:none">' + bedOpts('2') + '</select>' +
+        '<select data-mix="baths" style="background:#081426;border:1px solid #ffffff1f;border-radius:10px;padding:10px 12px;font:600 12.5px \'Manrope\',sans-serif;color:#fff;outline:none">' + bathOpts('1') + '</select>' +
+        '</div>';
+    }
+    els.mix.innerHTML = html;
+    els.mix.querySelectorAll('select').forEach(function (s) {
+      s.addEventListener('change', clearResult);
+    });
+  }
+
+  function syncLayout() {
+    var n = parseInt(els.units.value, 10);
+    var multi = n >= 2;
+    var big = els.units.value === '5';
+    els.single.style.display = multi ? 'none' : 'grid';
+    els.multi.style.display = multi ? 'flex' : 'none';
+    els.run.style.display = big ? 'none' : 'block';
+    els.big.style.display = big ? 'flex' : 'none';
+    if (multi && els.mix.children.length === 0) buildMix(n);
+    if (!multi) els.mix.innerHTML = '';
+  }
+
+  function clearResult() {
+    els.result.style.display = 'none';
+  }
+
+  function onUnits() {
+    var n = parseInt(els.units.value, 10);
+    if (n >= 2) buildMix(n); else els.mix.innerHTML = '';
+    clearResult();
+    syncLayout();
+  }
+
+  function run() {
+    if (!window.FCG || !FCG.addressValid(els.addr)) { if (heErr) heErr.style.display = 'block'; els.addr.focus(); return; }
+    if (heErr) heErr.style.display = 'none';
+    var sqft = Math.min(20000, Math.max(300, parseInt(els.sqft.value, 10) || 1500));
+    var cf = parseFloat(els.cond.value), n = parseInt(els.units.value, 10);
+    var beds, baths, uf;
+    if (n >= 2) {
+      var mixBeds = els.mix.querySelectorAll('[data-mix="beds"]');
+      var mixBaths = els.mix.querySelectorAll('[data-mix="baths"]');
+      beds = 0; baths = 0;
+      mixBeds.forEach(function (s) { beds += parseInt(s.value, 10); });
+      mixBaths.forEach(function (s) { baths += parseFloat(s.value); });
+      uf = ({ 2: 1.12, 3: 1.22, 4: 1.28, 5: 1.3 })[n] || 1.3;
+    } else {
+      beds = parseInt(els.beds.value, 10);
+      baths = parseFloat(els.baths.value);
+      uf = els.units.value === '0' ? 0.92 : 1.0;
+    }
+    var lot = parseInt(els.lot.value, 10) || 0;
+    var lotAdj = 1 + Math.min(0.1, Math.max(0, (lot - 4000) / 100000));
+    var val = sqft * 218 * cf * uf * lotAdj * (1 + Math.max(0, beds - 2) * 0.02) * (1 + Math.max(0, baths - 2) * 0.015);
+    var rnd = function (x) { return '$' + (Math.round(x / 1000) * 1000).toLocaleString(); };
+    // Cash-buyer range: ~70% of estimated market value (kept realistic, never
+    // presented as our final offer).
+    var cash = val * 0.70;
+    els.lo.textContent = rnd(cash * 0.95);
+    els.hi.textContent = rnd(cash * 1.06);
+    els.comps.textContent = 6 + (sqft % 9);
+    els.result.style.display = 'flex';
+    ran = true;
+    els.run.textContent = 'Update My Range →';
+  }
+
+  ['he-address', 'he-cond', 'he-sqft', 'he-lot', 'he-beds', 'he-baths'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', clearResult);
+  });
+  els.units.addEventListener('change', onUnits);
+  els.run.addEventListener('click', run);
+
+  syncLayout();
+})();
+</script>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

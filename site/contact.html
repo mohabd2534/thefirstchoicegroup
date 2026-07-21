@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — The First Choice Group</title>
+<meta name="description" content="Tell us about your property or your deal and a specialist — a person, not a bot — will reach out within one business hour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<div style="min-height:70vh;background:radial-gradient(900px 420px at 50% 0%,#12345A55,transparent),#081426;padding:64px 32px 80px">
+<div class="cols pad-sec" style="max-width:1240px;margin:0 auto;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:64px;align-items:start">
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:8px;border:1px solid #5AB8F544;background:#5AB8F514;color:#7ACBFF;font:700 12px 'Manrope',sans-serif;padding:7px 14px;border-radius:999px;letter-spacing:.05em">CONTACT</div>
+    <h1 class="hero-title" style="margin:0;font:800 44px/1.1 'Sora',sans-serif;color:#fff;letter-spacing:-.02em;text-wrap:pretty">Let's get started.</h1>
+    <div style="font:500 16px/1.7 'Manrope',sans-serif;color:#9FB0C9">Tell us a little about your property or your deal and a specialist — a person, not a bot — will reach out within one business hour.</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:14px;background:#0E2240;border:1px solid #ffffff14;border-radius:14px;padding:18px 20px"><span style="color:#5AB8F5;font-size:18px">&#9993;</span><div style="display:flex;flex-direction:column;gap:1px"><div style="font:700 15px 'Sora',sans-serif;color:#fff">info@thefirstchoicegroup.com</div><div style="font:600 12px 'Manrope',sans-serif;color:#8DA0BC">Replies within a few hours</div></div></div>
+      <div style="display:flex;align-items:center;gap:14px;background:#0E2240;border:1px solid #ffffff14;border-radius:14px;padding:18px 20px"><span style="color:#5AB8F5;font-size:18px">&#9672;</span><div style="display:flex;flex-direction:column;gap:1px"><div style="font:700 15px 'Sora',sans-serif;color:#fff">24/7 AI assistant</div><div style="font:600 12px 'Manrope',sans-serif;color:#8DA0BC">Bottom-right corner — instant answers, any hour</div></div></div>
+    </div>
+    <div style="display:flex;gap:20px;align-items:center;font:600 12.5px 'Manrope',sans-serif;color:#7A8DA9;flex-wrap:wrap">
+      <span><span style="color:#F5C044">★★★★★</span> 4.9 on Google</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="background:#00548F;color:#fff;font:800 10px 'Sora',sans-serif;padding:3px 6px;border-radius:4px">BBB</span> A+ Accredited</span>
+      <span>Fast closings · Zero fees</span>
+    </div>
+  </div>
+  <div id="contact-card" style="background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #ffffff1c;border-radius:22px;padding:36px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 80px rgba(0,0,0,.4)">
+    <div style="font:700 18px 'Sora',sans-serif;color:#fff">Tell us what you need</div>
+    <div style="display:flex;gap:10px">
+      <span id="intent-sell" data-intent="sell" style="flex:1;text-align:center;border:1px solid #5AB8F5;background:#5AB8F51f;color:#fff;font:700 13.5px 'Manrope',sans-serif;padding:13px;border-radius:11px;cursor:pointer">Sell my house</span>
+      <span id="intent-loan" data-intent="loan" style="flex:1;text-align:center;border:1px solid #ffffff1f;background:#081426;color:#9FB0C9;font:700 13.5px 'Manrope',sans-serif;padding:13px;border-radius:11px;cursor:pointer">Get investor financing</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+      <input placeholder="Full name" style="background:#081426;border:1px solid #ffffff1f;border-radius:11px;padding:14px 16px;color:#fff;font:500 14px 'Manrope',sans-serif;outline:none">
+      <input placeholder="Phone" style="background:#081426;border:1px solid #ffffff1f;border-radius:11px;padding:14px 16px;color:#fff;font:500 14px 'Manrope',sans-serif;outline:none">
+    </div>
+    <input placeholder="Email" style="background:#081426;border:1px solid #ffffff1f;border-radius:11px;padding:14px 16px;color:#fff;font:500 14px 'Manrope',sans-serif;outline:none">
+    <input id="contact-address" data-addr placeholder="Property address" style="background:#081426;border:1px solid #ffffff1f;border-radius:11px;padding:14px 16px;color:#fff;font:500 14px 'Manrope',sans-serif;outline:none">
+    <textarea id="contact-msg" placeholder="Anything we should know? Timeline, condition, situation…" rows="4" style="background:#081426;border:1px solid #ffffff1f;border-radius:11px;padding:14px 16px;color:#fff;font:500 14px 'Manrope',sans-serif;outline:none;resize:vertical;font-family:'Manrope',sans-serif"></textarea>
+    <span id="contact-submit" data-hover="background:#7ACBFF" style="background:#5AB8F5;color:#081426;font:700 15px 'Manrope',sans-serif;padding:16px;border-radius:12px;text-align:center;cursor:pointer">Send Message →</span>
+    <div style="font:500 11.5px/1.5 'Manrope',sans-serif;color:#5F7392">No spam, no pressure, no obligation. Your information is never sold or shared.</div>
+  </div>
+</div>
+</div>
+
+<div id="site-footer"></div>
+
+<script>
+(function () {
+  var intent = 'sell';
+  var sell = document.getElementById('intent-sell');
+  var loan = document.getElementById('intent-loan');
+  var addr = document.getElementById('contact-address');
+  var msg = document.getElementById('contact-msg');
+  var card = document.getElementById('contact-card');
+
+  function setIntent(k) {
+    intent = k;
+    [['sell', sell], ['loan', loan]].forEach(function (p) {
+      var on = p[0] === k, el = p[1];
+      el.style.border = '1px solid ' + (on ? '#5AB8F5' : '#ffffff1f');
+      el.style.background = on ? '#5AB8F51f' : '#081426';
+      el.style.color = on ? '#fff' : '#9FB0C9';
+    });
+    addr.placeholder = k === 'loan' ? 'Deal address (if under contract)' : 'Property address';
+    msg.placeholder = k === 'loan' ? 'Purchase price, rehab budget, ARV — whatever you have' : 'Anything we should know? Timeline, condition, situation…';
+  }
+  sell.addEventListener('click', function () { setIntent('sell'); });
+  loan.addEventListener('click', function () { setIntent('loan'); });
+
+  document.getElementById('contact-submit').addEventListener('click', function () {
+    card.innerHTML =
+      '<div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:48px 20px;text-align:center">' +
+        '<span style="width:56px;height:56px;border-radius:50%;background:#2EC98E1f;color:#2EC98E;display:flex;align-items:center;justify-content:center;font:800 24px \'Sora\',sans-serif">✓</span>' +
+        '<div style="font:800 24px \'Sora\',sans-serif;color:#fff">Got it — talk soon.</div>' +
+        '<div style="font:500 14.5px/1.6 \'Manrope\',sans-serif;color:#9FB0C9;max-width:360px">A specialist will reach out within one business hour (Mon–Sat). Want a head start? Try the instant estimator.</div>' +
+        '<a href="estimator.html" data-hover="background:#7ACBFF;color:#081426" style="background:#5AB8F5;color:#081426;font:700 14px \'Manrope\',sans-serif;padding:14px 26px;border-radius:11px;text-decoration:none">Get My Offer Range →</a>' +
+      '</div>';
+    if (window.FCG) window.FCG.wireHover(card);
+  });
+})();
+</script>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

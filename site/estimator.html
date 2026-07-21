@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instant Offer Estimator — The First Choice Group</title>
+<meta name="description" content="Answer a few quick questions and get a preliminary cash-offer range in about 60 seconds. No obligation, no fees.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div id="site-nav"></div>
+
+<div style="min-height:78vh;background:radial-gradient(900px 420px at 50% 0%,#12345A55,transparent),#081426;padding:56px 32px 80px">
+<div style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:28px">
+  <div style="display:flex;flex-direction:column;gap:16px;text-align:center;align-items:center">
+    <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid #5AB8F544;background:#5AB8F514;color:#7ACBFF;font:700 11.5px 'Manrope',sans-serif;padding:6px 13px;border-radius:999px;letter-spacing:.06em">&#9672; FIRSTCHOICE AI · INSTANT OFFER ESTIMATOR</div>
+    <div id="est-segs" style="display:flex;gap:6px;width:100%;max-width:420px"></div>
+  </div>
+  <div id="est-root"></div>
+  <div style="display:flex;justify-content:center;gap:24px;font:600 12.5px 'Manrope',sans-serif;color:#7A8DA9;flex-wrap:wrap">
+    <span><span style="color:#F5C044">★★★★★</span> 4.9 on Google</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="background:#00548F;color:#fff;font:800 10px 'Sora',sans-serif;padding:3px 6px;border-radius:4px">BBB</span> A+ Accredited</span>
+    <span>1,300+ homeowners helped</span>
+  </div>
+</div>
+</div>
+
+<div id="site-footer"></div>
+
+<script>
+(function () {
+  var state = { idx: 0, address: '', sqftVal: '', lotVal: '', answers: {}, computing: false, done: false, computeMsg: 'Connecting to Zillow® comps…' };
+
+  try {
+    var pre = localStorage.getItem('fc-prefill-address');
+    if (pre) state.address = pre;
+  } catch (e) {}
+
+  function steps() {
+    var a = state.answers;
+    var multi = (a.units || 1) >= 2;
+    var base = ['address', 'situation', 'units'].concat(multi ? ['unitMix'] : ['beds', 'baths']).concat(['sqft', 'lot', 'yearBuilt', 'condition']);
+    if (a.situation && a.situation !== 'exploring') base.push('extra');
+    base.push('timeline');
+    return base;
+  }
+
+  function defs() {
+    var sit = state.answers.situation;
+    var extraBySit = {
+      foreclosure: { t: 'Where are you in the foreclosure process?', s: 'This helps us move at the right speed — we can often close before an auction date.', o: [['Just behind on payments', 'early'], ['Received a notice of default', 'notice'], ['Auction date is set', 'auction'], ['Not sure', 'unsure']] },
+      probate: { t: 'Where is the estate in the probate process?', s: 'We coordinate with your attorney and time closing around the court.', o: [['Probate not started yet', 'not-started'], ['In probate now', 'in-probate'], ['Probate complete', 'complete'], ['Not sure', 'unsure']] },
+      repairs: { t: "What's the biggest issue with the property?", s: 'We buy fully as-is — this just sharpens the estimate.', o: [['Roof / structural', 'structure'], ['Kitchen & baths dated', 'cosmetic'], ['Fire or water damage', 'damage'], ['A bit of everything', 'everything']] },
+      relocation: { t: "What's driving the move?", s: 'We build the closing around your date, not ours.', o: [['New job / relocation', 'job'], ['Divorce or separation', 'divorce'], ['Family reasons', 'family'], ["I'd rather not say", 'private']] },
+      landlord: { t: 'Is the property currently occupied?', s: 'We buy with tenants in place — even mid-lease or behind on rent.', o: [['Vacant', 'vacant'], ['Tenants in place', 'tenants'], ['Tenants behind on rent', 'behind'], ['Owner-occupied', 'owner']] }
+    };
+    return {
+      address: { t: "What's the property address?", s: 'We pull Zillow® and county-record sales around this address to price accurately.' },
+      units: { t: 'What type of property is it?', s: 'Unit count changes which comps we pull.', o: [['Single-family', 1], ['Condo / townhome', 0], ['2 units', 2], ['3 units', 3], ['4 units', 4], ['5+ units', 5]] },
+      unitMix: { t: 'Break down each unit for us.', s: 'Beds and baths per unit — rents and comps depend on the mix.' },
+      situation: { t: 'Which best describes your situation?', s: 'Our questions adapt to your answer — no generic 40-field forms.', o: [['Facing foreclosure', 'foreclosure'], ['Inherited / probate', 'probate'], ['Too many repairs', 'repairs'], ['Relocating / divorce', 'relocation'], ["I'm a tired landlord", 'landlord'], ['Just exploring my options', 'exploring']] },
+      beds: { t: 'How many bedrooms?', s: 'Layout gets confirmed on the quick call after.', o: [['1', 1], ['2', 2], ['3', 3], ['4', 4], ['5+', 5]] },
+      baths: { t: 'How many bathrooms?', s: 'Half-baths count — pick the closest.', o: [['1', 1], ['1.5', 1.5], ['2', 2], ['2.5', 2.5], ['3+', 3]] },
+      sqft: { t: "What's the livable square footage?", s: 'Finished, heated space — an exact number lets us match county records precisely.' },
+      lot: { t: "What's the lot size?", s: 'Land value matters, especially for larger lots. Skip it if you’re not sure.' },
+      yearBuilt: { t: 'When was it built (roughly)?', s: 'Age tunes which comparable sales apply.', o: [['Before 1950', 0.93], ['1950–1980', 0.97], ['1980–2005', 1.0], ['After 2005', 1.05]] },
+      condition: { t: 'How would you describe the condition?', s: 'Be honest — we buy as-is, this only tunes the range.', o: [['Move-in ready', 1.0], ['Needs some repairs', 0.88], ['Needs major repairs', 0.74]] },
+      extra: extraBySit[sit] || { t: '', s: '', o: [] },
+      timeline: { t: 'When would you like to close?', s: "You pick the date — we'll match it.", o: [['As soon as possible', 'asap'], ['Within 1–3 months', 'soon'], ["I'm flexible", 'flexible']] }
+    };
+  }
+
+  function stepsWith(answers) {
+    var save = state.answers; state.answers = answers;
+    var r = steps(); state.answers = save; return r;
+  }
+
+  function pick(key, val) {
+    var answers = Object.assign({}, state.answers); answers[key] = val;
+    if (key === 'units' && val >= 2) {
+      var existing = state.answers.unitMix || [];
+      answers.unitMix = [];
+      for (var i = 0; i < Math.min(val, 4); i++) answers.unitMix.push(existing[i] || { beds: '2', baths: '1' });
+    }
+    var stepsAfter = stepsWith(answers);
+    if (state.idx >= stepsAfter.length - 1) {
+      state.answers = answers; state.computing = true; state.done = false; render();
+      var msgs = ['Connecting to Zillow® comps…', 'Matching county records & recent sales…', 'Adjusting for size, units & condition…'];
+      msgs.forEach(function (m, i) { setTimeout(function () { state.computeMsg = m; if (state.computing) render(); }, i * 700); });
+      setTimeout(function () { state.computing = false; state.done = true; render(); }, 2300);
+    } else {
+      state.answers = answers; state.idx = state.idx + 1; render();
+    }
+  }
+
+  function result() {
+    var a = state.answers;
+    var sqft = Math.min(20000, Math.max(300, a.sqft || 1500)), cf = a.condition || 0.9;
+    var beds = a.beds || 3, baths = a.baths || 2;
+    if (a.unitMix && a.unitMix.length) {
+      beds = a.unitMix.reduce(function (s, u) { return s + parseInt(u.beds, 10); }, 0);
+      baths = a.unitMix.reduce(function (s, u) { return s + parseFloat(u.baths); }, 0);
+    }
+    var uf = ({ 1: 1.0, 0: 0.92, 2: 1.12, 3: 1.22, 4: 1.28, 5: 1.3 })[a.units] || 1.0;
+    var lotAdj = 1 + Math.min(0.1, Math.max(0, ((a.lot || 0) - 4000) / 100000));
+    var val = sqft * 218 * cf * uf * lotAdj * (a.yearBuilt || 1.0) * (1 + Math.max(0, beds - 2) * 0.02) * (1 + Math.max(0, baths - 2) * 0.015);
+    var cash = val * 0.70; // realistic cash-buyer range — never presented as our final offer
+    var rnd = function (n) { return '$' + (Math.round(n / 1000) * 1000).toLocaleString(); };
+    return { lo: rnd(cash * 0.95), hi: rnd(cash * 1.06), comps: 6 + (sqft % 9) };
+  }
+
+  var NOTES = {
+    foreclosure: 'Because you may be on a foreclosure timeline, a specialist will call within 1 business hour. In urgent cases we can close in as little as 10 days — often before an auction date.',
+    probate: "We'll coordinate directly with your probate attorney and buy the property fully as-is — belongings can stay, no cleanout needed.",
+    repairs: 'This range already accounts for condition. You will never make a repair, pass an inspection, or even clean the property.',
+    relocation: 'Tell us your move-out date and we close around it — 10 days out or 6 months.',
+    landlord: 'We buy with tenants in place, mid-lease or behind on rent. You collect your cash and hand us the headache.',
+    exploring: "No pressure — this range is yours to keep. When you're ready, a firm written offer takes 24 hours."
+  };
+
+  // ---- markup helpers ----
+  var CARD = "background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #ffffff1c;border-radius:22px;padding:40px;display:flex;flex-direction:column;gap:22px;box-shadow:0 30px 80px rgba(0,0,0,.4)";
+  var INPUTBAR = "display:flex;gap:8px;background:#081426;border:1px solid #ffffff1f;border-radius:14px;padding:8px";
+  var CONT_BTN = "background:#5AB8F5;color:#081426;font:700 15px 'Manrope',sans-serif;padding:13px 24px;border-radius:10px;cursor:pointer;white-space:nowrap";
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function segsHtml(sts) {
+    return sts.map(function (s, i) {
+      var bg = (i < state.idx || state.done || state.computing) ? '#5AB8F5' : (i === state.idx ? '#5AB8F588' : '#ffffff1a');
+      return '<span style="flex:1;height:5px;border-radius:3px;background:' + bg + '"></span>';
+    }).join('');
+  }
+  function bedSel(sel) {
+    var v = ['1', '2', '3', '4', '5'], l = ['1 bed', '2 beds', '3 beds', '4 beds', '5+ beds'];
+    return v.map(function (x, i) { return '<option value="' + x + '"' + (x === sel ? ' selected' : '') + '>' + l[i] + '</option>'; }).join('');
+  }
+  function bathSel(sel) {
+    var v = ['1', '1.5', '2', '2.5', '3'], l = ['1 bath', '1.5 baths', '2 baths', '2.5 baths', '3+ baths'];
+    return v.map(function (x, i) { return '<option value="' + x + '"' + (x === sel ? ' selected' : '') + '>' + l[i] + '</option>'; }).join('');
+  }
+
+  function render() {
+    var sts = steps(), idx = state.idx, key = sts[idx], d = defs()[key] || {};
+    var asking = !state.computing && !state.done;
+    document.getElementById('est-segs').innerHTML = segsHtml(sts);
+    var root = document.getElementById('est-root');
+    var html = '';
+
+    if (asking) {
+      var body = '';
+      var title = '<div style="display:flex;flex-direction:column;gap:8px"><div style="font:800 26px/1.2 \'Sora\',sans-serif;color:#fff;letter-spacing:-.01em">' + esc(d.t) + '</div><div style="font:500 14.5px/1.6 \'Manrope\',sans-serif;color:#9FB0C9">' + esc(d.s) + '</div></div>';
+
+      if (key === 'address') {
+        body =
+          '<div style="' + INPUTBAR + '"><input id="est-addr" data-addr value="' + esc(state.address) + '" placeholder="Start typing your address…" style="flex:1;background:transparent;border:none;outline:none;padding:10px 14px;color:#fff;font:500 15px \'Manrope\',sans-serif"><span id="est-addr-go" data-hover="background:#7ACBFF" style="' + CONT_BTN + '">Continue →</span></div>' +
+          '<div id="est-addr-err" style="display:none;font:600 12.5px \'Manrope\',sans-serif;color:#FF9B9B">Please select your full property address to continue.</div>' +
+          '<div style="display:flex;gap:20px;font:600 12px \'Manrope\',sans-serif;color:#7A8DA9;flex-wrap:wrap"><span>✓ No obligation</span><span>✓ No fees, ever</span><span>✓ Takes ~60 seconds</span></div>';
+      } else if (key === 'sqft') {
+        body =
+          '<div style="' + INPUTBAR + '"><input id="est-sqft" type="number" min="200" value="' + esc(state.sqftVal) + '" placeholder="e.g. 1450" style="flex:1;background:transparent;border:none;outline:none;padding:10px 14px;color:#fff;font:500 15px \'Manrope\',sans-serif"><span style="align-self:center;color:#7A8DA9;font:600 13px \'Manrope\',sans-serif;padding-right:6px">sq ft</span><span id="est-sqft-go" data-hover="background:#7ACBFF" style="' + CONT_BTN + '">Continue →</span></div>' +
+          '<div style="font:600 12px \'Manrope\',sans-serif;color:#7A8DA9">Not sure? Your county assessor or Zillow listing has it — or give your best estimate.</div>';
+      } else if (key === 'lot') {
+        body =
+          '<div style="' + INPUTBAR + '"><input id="est-lot" type="number" min="0" value="' + esc(state.lotVal) + '" placeholder="e.g. 5000" style="flex:1;background:transparent;border:none;outline:none;padding:10px 14px;color:#fff;font:500 15px \'Manrope\',sans-serif"><span style="align-self:center;color:#7A8DA9;font:600 13px \'Manrope\',sans-serif;padding-right:6px">lot sq ft</span><span id="est-lot-go" data-hover="background:#7ACBFF" style="' + CONT_BTN + '">Continue →</span></div>' +
+          '<span id="est-lot-skip" data-hover="color:#fff" style="align-self:flex-start;font:600 12.5px \'Manrope\',sans-serif;color:#7A8DA9;cursor:pointer;text-decoration:underline">Not sure — skip this</span>';
+      } else if (key === 'unitMix') {
+        var rows = (state.answers.unitMix || []).map(function (u, i) {
+          return '<div style="display:grid;grid-template-columns:80px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center">' +
+            '<span style="font:700 13px \'Sora\',sans-serif;color:#9FB0C9">Unit ' + (i + 1) + '</span>' +
+            '<select data-u="' + i + '" data-k="beds" style="background:#081426;border:1px solid #ffffff1f;border-radius:11px;padding:12px 14px;font:600 13.5px \'Manrope\',sans-serif;color:#fff;outline:none">' + bedSel(u.beds) + '</select>' +
+            '<select data-u="' + i + '" data-k="baths" style="background:#081426;border:1px solid #ffffff1f;border-radius:11px;padding:12px 14px;font:600 13.5px \'Manrope\',sans-serif;color:#fff;outline:none">' + bathSel(u.baths) + '</select>' +
+            '</div>';
+        }).join('');
+        body = '<div style="display:flex;flex-direction:column;gap:10px">' + rows + '<span id="est-mix-go" data-hover="background:#7ACBFF" style="background:#5AB8F5;color:#081426;font:700 15px \'Manrope\',sans-serif;padding:14px;border-radius:11px;cursor:pointer;text-align:center;margin-top:6px">Continue →</span></div>';
+      } else {
+        // options grid
+        var opts = (d.o || []).map(function (pair, i) {
+          var label = pair[0], val = pair[1];
+          var seld = state.answers[key] === val;
+          return '<span data-opt="' + i + '" data-hover="border-color:#5AB8F5;color:#fff" style="background:#081426;border:1px solid ' + (seld ? '#5AB8F5' : '#ffffff1f') + ';border-radius:14px;padding:18px 20px;font:600 15px \'Manrope\',sans-serif;color:' + (seld ? '#fff' : '#C9D6E8') + ';cursor:pointer;text-align:left">' + esc(label) + '</span>';
+        }).join('');
+        body = '<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">' + opts + '</div>';
+      }
+
+      var back = idx > 0 ? '<span id="est-back" data-hover="color:#fff" style="align-self:flex-start;font:600 13px \'Manrope\',sans-serif;color:#7A8DA9;cursor:pointer">← Back</span>' : '';
+      html = '<div style="' + CARD + ';animation:fadeUp .35s ease both">' + title + body + back + '</div>';
+    } else if (state.computing) {
+      html = '<div style="background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #ffffff1c;border-radius:22px;padding:56px 40px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">' +
+        '<span style="width:52px;height:52px;border-radius:50%;border:3px solid #5AB8F52a;border-top-color:#5AB8F5;animation:spin .9s linear infinite"></span>' +
+        '<div style="font:700 20px \'Sora\',sans-serif;color:#fff">' + esc(state.computeMsg) + '</div>' +
+        '<div style="font:500 13.5px \'Manrope\',sans-serif;color:#9FB0C9">Comparing recent sales, condition, and market velocity in your area…</div></div>';
+    } else if (state.done) {
+      var specialist = state.answers.units === 5;
+      var r = result();
+      var echo = state.address || 'Your property';
+      var note = NOTES[state.answers.situation] || NOTES.exploring;
+      var inner = '';
+      if (specialist) {
+        inner =
+          '<div style="display:flex;flex-direction:column;gap:6px"><div style="font:600 11px \'Manrope\',sans-serif;color:#7ADCEC;letter-spacing:.1em">THIS ONE DESERVES A HUMAN</div>' +
+          '<div style="font:800 34px/1.15 \'Sora\',sans-serif;color:#fff;letter-spacing:-.01em;text-wrap:pretty">5+ units get a custom underwrite — not an algorithm.</div>' +
+          '<div style="font:600 13px \'Manrope\',sans-serif;color:#9FB0C9">' + esc(echo) + '</div></div>' +
+          '<div style="font:500 14px/1.65 \'Manrope\',sans-serif;color:#C9D6E8">Larger multi-family pricing depends on rent rolls, leases, and expenses — things comps can\'t see. A specialist will review your answers and quote it personally within 24 hours.</div>';
+      } else {
+        inner =
+          '<div style="display:flex;flex-direction:column;gap:6px"><div style="font:600 11px \'Manrope\',sans-serif;color:#7ADCEC;letter-spacing:.1em">PRELIMINARY CASH OFFER RANGE</div>' +
+          '<div style="font:800 46px \'Sora\',sans-serif;color:#fff;letter-spacing:-.01em">' + r.lo + ' – ' + r.hi + '</div>' +
+          '<div style="font:600 13px \'Manrope\',sans-serif;color:#9FB0C9">' + esc(echo) + '</div></div>' +
+          '<div style="height:10px;border-radius:5px;background:#ffffff14;position:relative"><div style="position:absolute;left:16%;right:20%;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,#37C8E0,#5AB8F5)"></div></div>' +
+          '<div style="background:#081426;border:1px solid #ffffff14;border-radius:13px;padding:16px 18px;font:600 13px/1.6 \'Manrope\',sans-serif;color:#9FB0C9">Estimated from <b style="color:#fff">' + r.comps + '</b> recent comparable sales near this address. This is a preliminary range from public data — <b style="color:#fff">not an offer</b>. Share a few more details and a specialist runs full comps to confirm your number.</div>';
+      }
+      html = '<div style="background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #37C8E044;border-radius:22px;padding:44px;display:flex;flex-direction:column;gap:22px;box-shadow:0 30px 80px rgba(0,0,0,.4),0 0 0 8px #37C8E00d;animation:fadeUp .4s ease both">' +
+        inner +
+        '<div style="background:#5AB8F512;border:1px solid #5AB8F533;border-radius:13px;padding:16px 18px;font:500 13.5px/1.6 \'Manrope\',sans-serif;color:#C9D6E8">' + esc(note) + '</div>' +
+        '<div style="display:flex;gap:12px;flex-wrap:wrap"><a href="offer.html" data-hover="background:#7ACBFF;color:#081426" style="flex:1;background:#5AB8F5;color:#081426;font:700 15px \'Manrope\',sans-serif;padding:16px;border-radius:12px;text-align:center;text-decoration:none;min-width:220px">Get My Cash Offer →</a>' +
+        '<span id="est-restart" data-hover="border-color:#5AB8F5;color:#fff" style="border:1px solid #ffffff26;color:#C9D6E8;font:700 15px \'Manrope\',sans-serif;padding:16px 24px;border-radius:12px;cursor:pointer;text-align:center">Start over</span></div>' +
+        '<div style="font:500 11.5px/1.5 \'Manrope\',sans-serif;color:#5F7392">This preliminary range is generated by our pricing model and is not a binding offer. Your firm cash offer follows a quick call and property review — still with zero fees or obligation.</div></div>';
+    }
+
+    root.innerHTML = html;
+    if (window.FCG) window.FCG.wireHover(root);
+    attach(key);
+  }
+
+  function attach(key) {
+    var g = function (id) { return document.getElementById(id); };
+    if (g('est-addr')) {
+      var ai = g('est-addr');
+      if (window.FCG) FCG.initAddressAutocomplete(ai);
+      var aerr = g('est-addr-err');
+      ai.addEventListener('input', function () { state.address = ai.value; if (aerr) aerr.style.display = 'none'; });
+      ai.addEventListener('change', function () { state.address = ai.value; });
+      var goA = function () {
+        if (!window.FCG || !FCG.addressValid(ai)) { if (aerr) aerr.style.display = 'block'; ai.focus(); return; }
+        state.address = ai.value; state.idx = 1; render();
+      };
+      g('est-addr-go').addEventListener('click', goA);
+      ai.addEventListener('keydown', function (e) { if (e.key === 'Enter') goA(); });
+      ai.focus();
+    }
+    if (g('est-sqft')) {
+      var si = g('est-sqft');
+      si.addEventListener('input', function () { state.sqftVal = si.value; });
+      var goS = function () { var n = parseInt(si.value, 10); if (n > 0) { state.sqftVal = si.value; pick('sqft', n); } };
+      g('est-sqft-go').addEventListener('click', goS);
+      si.addEventListener('keydown', function (e) { if (e.key === 'Enter') goS(); });
+    }
+    if (g('est-lot')) {
+      var li = g('est-lot');
+      li.addEventListener('input', function () { state.lotVal = li.value; });
+      var goL = function () { state.lotVal = li.value; pick('lot', parseInt(li.value, 10) || 0); };
+      g('est-lot-go').addEventListener('click', goL);
+      g('est-lot-skip').addEventListener('click', goL);
+      li.addEventListener('keydown', function (e) { if (e.key === 'Enter') goL(); });
+    }
+    if (g('est-mix-go')) {
+      document.querySelectorAll('#est-root select[data-u]').forEach(function (sel) {
+        sel.addEventListener('change', function () {
+          var i = +sel.getAttribute('data-u'), k = sel.getAttribute('data-k');
+          state.answers.unitMix[i] = Object.assign({}, state.answers.unitMix[i]);
+          state.answers.unitMix[i][k] = sel.value;
+        });
+      });
+      g('est-mix-go').addEventListener('click', function () { pick('unitMix', state.answers.unitMix); });
+    }
+    document.querySelectorAll('#est-root [data-opt]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var d = defs()[key], pair = d.o[+el.getAttribute('data-opt')];
+        pick(key, pair[1]);
+      });
+    });
+    if (g('est-back')) g('est-back').addEventListener('click', function () { state.idx = Math.max(0, state.idx - 1); render(); });
+    if (g('est-restart')) g('est-restart').addEventListener('click', function () {
+      state = { idx: 0, address: '', sqftVal: '', lotVal: '', answers: {}, computing: false, done: false, computeMsg: 'Connecting to Zillow® comps…' };
+      render();
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
+  else render();
+})();
+</script>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

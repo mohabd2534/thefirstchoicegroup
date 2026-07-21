@@ -1,0 +1,140 @@
+/* The First Choice Group — shared base styles
+   Palette (from the design):
+   --ink        #081426  page background (deep navy)
+   --ink-2      #0B1B33  raised panels
+   --ink-3      #0E2240  cards
+   --blue       #5AB8F5  primary accent / buttons
+   --blue-hi    #7ACBFF  hover / links
+   --cyan       #37C8E0  secondary accent
+   Fonts: Sora (display), Manrope (body) */
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: #081426;
+  color: #fff;
+  font-family: 'Manrope', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+a { color: #7ACBFF; }
+a:hover { color: #A5DBFF; }
+
+img { max-width: 100%; }
+
+/* Let inputs/selects shrink inside flex rows (default min-width:auto forces
+   overflow) and never exceed their container. */
+input, select, textarea { min-width: 0; max-width: 100%; }
+
+/* Address autocomplete dropdown */
+.addr-dd .addr-row:hover { background: #ffffff12; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Smooth, faithful hover transitions for elements the design gave a
+   style-hover (wired up as data-hover by site.js). */
+[data-hover] {
+  transition: background .16s ease, border-color .16s ease, transform .16s ease,
+              color .16s ease, box-shadow .16s ease, opacity .16s ease;
+}
+
+/* ---- Responsive layout helpers ------------------------------------------
+   The design keeps fixed multi-column CSS grids inline. These classes add the
+   display:grid + the mobile collapse, so desktop stays pixel-identical while
+   the site collapses cleanly on smaller screens. The [style*=…] rules below
+   reach the many inline paddings/gaps/heights the design hard-codes, without
+   editing every page — one stylesheet keeps all 11 pages responsive. */
+.cols { display: grid; }
+.cols-2up { display: grid; }
+
+/* ---- Site navigation ---------------------------------------------------- */
+.nav-toggle { display: none; }
+.mobile-menu { display: none; }
+
+@media (max-width: 860px) {
+  .nav-links, .nav-cta { display: none !important; }
+  .nav-toggle { display: flex !important; }
+  .mobile-menu.open { display: flex !important; }
+}
+
+/* ===================== TABLET (≤ 900px) ===================== */
+@media (max-width: 900px) {
+  .cols { grid-template-columns: minmax(0, 1fr) !important; }
+  .cols-2up { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .hero-title { font-size: 40px !important; line-height: 1.08 !important; }
+  .sec-title { font-size: 30px !important; }
+
+  /* Tighten the large layout gaps so stacked columns don't leave big voids */
+  [style*="gap:56px"] { gap: 32px !important; }
+  [style*="gap:64px"] { gap: 32px !important; }
+  [style*="gap:48px"] { gap: 30px !important; }
+}
+
+/* ===================== PHONE (≤ 640px) ===================== */
+@media (max-width: 640px) {
+  .cols-2up { grid-template-columns: minmax(0, 1fr) !important; }
+
+  /* 4-up rows (stat band, day-by-day timelines) read better as a 2×2 grid
+     on phones than one tall column. */
+  [style*="repeat(4,minmax(0,1fr))"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+
+  /* --- Typography: cap every heading so nothing overflows a narrow screen --- */
+  h1, .hero-title { font-size: 30px !important; line-height: 1.15 !important; }
+  h2, .sec-title  { font-size: 23px !important; line-height: 1.2 !important; }
+  h3 { font-size: 19px !important; }
+
+  /* --- Inputs at 16px so iOS doesn't zoom the page on focus --- */
+  input, select, textarea { font-size: 16px !important; }
+
+  /* --- Section wrappers: shrink the generous desktop padding --- */
+  .pad-sec { padding-left: 18px !important; padding-right: 18px !important; }
+  [style*="padding:72px 32px"]      { padding: 40px 18px !important; }
+  [style*="padding:80px 32px"]      { padding: 44px 18px !important; }
+  [style*="padding:56px 32px"]      { padding: 36px 18px !important; }
+  [style*="padding:48px 32px"]      { padding: 32px 18px !important; }
+  [style*="padding:40px 32px"]      { padding: 28px 18px !important; }
+  [style*="padding:24px 32px"]      { padding: 20px 18px !important; }
+  [style*="padding:64px 32px"]      { padding: 40px 18px !important; }
+  [style*="padding:0 32px 80px"]    { padding: 0 18px 44px !important; }
+  [style*="padding:16px 32px 72px"] { padding: 12px 18px 44px !important; }
+  /* Longer, more-specific overrides last so they win over the above */
+  [style*="padding:64px 32px 48px"] { padding: 40px 18px 28px !important; }
+
+  /* --- Cards / panels: shrink big internal padding --- */
+  [style*="padding:64px;"] { padding: 30px 22px !important; }
+  [style*="padding:56px;"] { padding: 28px 20px !important; }
+  [style*="padding:44px;"] { padding: 24px 18px !important; }
+  [style*="padding:40px;"] { padding: 24px 18px !important; }
+  [style*="padding:36px;"] { padding: 22px 18px !important; }
+  [style*="padding:32px;"] { padding: 22px 18px !important; }
+  [style*="padding:30px;"] { padding: 20px !important; }
+  [style*="padding:28px;"] { padding: 20px !important; }
+  [style*="padding:56px 40px"] { padding: 34px 20px !important; }
+  [style*="padding:24px 28px"] { padding: 18px 20px !important; }
+
+  /* --- Let side-by-side button/CTA rows wrap instead of overflowing --- */
+  [style*="gap:12px"] { flex-wrap: wrap; }
+  /* Full-width hero buttons read better than two cramped ones */
+  [style*="padding:15px 28px"] { flex: 1 1 auto; text-align: center; }
+
+  /* --- Tame oversized placeholder image boxes --- */
+  [style*="height:420px"] { height: 240px !important; }
+  [style*="height:280px"] { height: 220px !important; }
+
+  /* --- Slightly smaller body copy on the very small stuff --- */
+  [style*="font:500 18px"] { font-size: 16px !important; }
+  [style*="font:500 17px"] { font-size: 15.5px !important; }
+}
+
+/* ===================== SMALL PHONE (≤ 380px) ===================== */
+@media (max-width: 380px) {
+  h1, .hero-title { font-size: 27px !important; }
+  h2, .sec-title  { font-size: 21px !important; }
+  .pad-sec { padding-left: 15px !important; padding-right: 15px !important; }
+  /* Single column on very small screens so 2×2 cards aren't cramped */
+  [style*="repeat(4,minmax(0,1fr))"] { grid-template-columns: minmax(0, 1fr) !important; }
+}

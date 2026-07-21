@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Your Cash Offer — The First Choice Group</title>
+<meta name="description" content="Tell us about your property and a specialist runs real comps and gets you a firm, no-obligation cash offer. Takes about 3 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .fld { display:flex; flex-direction:column; gap:7px; }
+  .lbl { font:700 12px 'Manrope',sans-serif; color:#8DA0BC; letter-spacing:.04em; }
+  .in, .sel, .ta {
+    background:#081426; border:1px solid #ffffff1f; border-radius:11px; padding:14px 16px;
+    color:#fff; font:500 14.5px 'Manrope',sans-serif; outline:none; width:100%;
+    font-family:'Manrope',sans-serif;
+  }
+  .in:focus, .sel:focus, .ta:focus { border-color:#5AB8F5; }
+  .sectitle { font:700 13px 'Sora',sans-serif; color:#5AB8F5; letter-spacing:.08em; }
+  .chip {
+    border:1px solid #ffffff1f; background:#081426; color:#9FB0C9; border-radius:999px;
+    padding:9px 15px; font:600 13px 'Manrope',sans-serif; cursor:pointer; user-select:none;
+  }
+  .chip[aria-pressed="true"] { border-color:#5AB8F5; background:#5AB8F51f; color:#fff; }
+  .grid2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+  @media (max-width:640px){ .grid3{ grid-template-columns:repeat(2,minmax(0,1fr))!important; } }
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<div style="background:radial-gradient(900px 440px at 50% 0%,#12345A55,transparent),#081426;padding:56px 32px 80px">
+<div class="pad-sec" style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:26px">
+
+  <div style="display:flex;flex-direction:column;gap:14px;text-align:center;align-items:center">
+    <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid #5AB8F544;background:#5AB8F514;color:#7ACBFF;font:700 11.5px 'Manrope',sans-serif;padding:6px 13px;border-radius:999px;letter-spacing:.06em">GET YOUR CASH OFFER · NO OBLIGATION</div>
+    <h1 class="hero-title" style="margin:0;font:800 40px/1.1 'Sora',sans-serif;color:#fff;letter-spacing:-.02em;text-wrap:pretty">Tell us about your property.</h1>
+    <div style="font:500 16px/1.65 'Manrope',sans-serif;color:#9FB0C9;max-width:560px">The more you share, the faster we can run real comparable sales and get you a firm, no-obligation cash offer. Takes about 3 minutes — no fees, no pressure.</div>
+  </div>
+
+  <div id="offer-card" style="background:linear-gradient(180deg,#0E2240,#0B1B33);border:1px solid #ffffff1c;border-radius:22px;padding:36px;display:flex;flex-direction:column;gap:30px;box-shadow:0 30px 80px rgba(0,0,0,.4)">
+
+    <!-- PROPERTY -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="sectitle">THE PROPERTY</div>
+      <div class="fld">
+        <label class="lbl">Property address *</label>
+        <input id="of-address" data-addr class="in" placeholder="Start typing your address…">
+        <div id="of-address-err" style="display:none;font:600 12.5px 'Manrope',sans-serif;color:#FF9B9B">Please select your full property address.</div>
+      </div>
+      <div class="grid2">
+        <div class="fld">
+          <label class="lbl">Property type</label>
+          <select id="of-type" class="sel">
+            <option value="single">Single-family</option>
+            <option value="condo">Condo / townhome</option>
+            <option value="2">Multi-family — 2 units</option>
+            <option value="3">Multi-family — 3 units</option>
+            <option value="4">Multi-family — 4 units</option>
+            <option value="5plus">5+ units</option>
+            <option value="mobile">Mobile / manufactured</option>
+            <option value="land">Land / lot</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label class="lbl">Year built (approx.)</label>
+          <input id="of-year" class="in" type="number" inputmode="numeric" min="1800" max="2026" placeholder="e.g. 1968">
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="fld">
+          <label class="lbl">Bedrooms</label>
+          <select id="of-beds" class="sel"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select>
+        </div>
+        <div class="fld">
+          <label class="lbl">Bathrooms</label>
+          <select id="of-baths" class="sel"><option value="">—</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5+</option></select>
+        </div>
+        <div class="fld">
+          <label class="lbl">Livable sq ft</label>
+          <input id="of-sqft" class="in" type="number" inputmode="numeric" min="200" placeholder="e.g. 1450">
+        </div>
+      </div>
+      <div class="fld" style="max-width:calc(33% - 6px)">
+        <label class="lbl">Lot size (sq ft)</label>
+        <input id="of-lot" class="in" type="number" inputmode="numeric" min="0" placeholder="e.g. 5000">
+      </div>
+    </div>
+
+    <!-- CONDITION -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="sectitle">CONDITION</div>
+      <div class="fld">
+        <label class="lbl">How would you describe the overall condition?</label>
+        <select id="of-cond" class="sel">
+          <option value="renovated">Fully renovated / like-new</option>
+          <option value="movein">Move-in ready</option>
+          <option value="cosmetic">Light cosmetic updates needed</option>
+          <option value="dated">Dated but functional</option>
+          <option value="significant">Needs significant repairs</option>
+          <option value="major">Major systems failing (roof / HVAC / etc.)</option>
+          <option value="structural">Structural issues</option>
+          <option value="damage">Fire / water / storm damage</option>
+          <option value="teardown">Tear-down / total rehab</option>
+        </select>
+      </div>
+      <div class="fld">
+        <label class="lbl">Any known issues? (tap all that apply)</label>
+        <div id="of-issues" style="display:flex;flex-wrap:wrap;gap:8px">
+          <span class="chip" data-v="Roof">Roof</span>
+          <span class="chip" data-v="Foundation">Foundation</span>
+          <span class="chip" data-v="HVAC">HVAC</span>
+          <span class="chip" data-v="Plumbing">Plumbing</span>
+          <span class="chip" data-v="Electrical">Electrical</span>
+          <span class="chip" data-v="Windows">Windows</span>
+          <span class="chip" data-v="Kitchen">Kitchen</span>
+          <span class="chip" data-v="Bathrooms">Bathrooms</span>
+          <span class="chip" data-v="Water/Mold">Water / mold</span>
+          <span class="chip" data-v="Pests/Termite">Pests / termite</span>
+          <span class="chip" data-v="Unpermitted work">Unpermitted work</span>
+          <span class="chip" data-v="None known">None known</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OCCUPANCY & FINANCIALS -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="sectitle">OCCUPANCY &amp; NUMBERS</div>
+      <div class="grid2">
+        <div class="fld">
+          <label class="lbl">Is it occupied?</label>
+          <select id="of-occ" class="sel">
+            <option value="owner">Owner-occupied</option>
+            <option value="vacant">Vacant</option>
+            <option value="tenant-lease">Tenant — active lease</option>
+            <option value="tenant-mtm">Tenant — month-to-month</option>
+            <option value="tenant-behind">Tenant — behind on rent</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label class="lbl">Are you the owner / on title?</label>
+          <select id="of-owner" class="sel">
+            <option value="yes">Yes, I own it</option>
+            <option value="co">One of several owners / heirs</option>
+            <option value="agent">No — agent / representative</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="fld">
+          <label class="lbl">Approx. mortgage / loans owed <span style="color:#5F7392;font-weight:500">(optional)</span></label>
+          <input id="of-owed" class="in" placeholder="e.g. $180,000 or 'paid off'">
+        </div>
+        <div class="fld">
+          <label class="lbl">Liens or back taxes? <span style="color:#5F7392;font-weight:500">(optional)</span></label>
+          <input id="of-liens" class="in" placeholder="e.g. none, or ~$8k back taxes">
+        </div>
+      </div>
+      <div class="fld">
+        <label class="lbl">Your price expectation <span style="color:#5F7392;font-weight:500">(optional — helps us move fast)</span></label>
+        <input id="of-price" class="in" placeholder="A number or range you'd be happy with">
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="sectitle">TIMELINE</div>
+      <div class="fld">
+        <label class="lbl">When would you like to close?</label>
+        <select id="of-timeline" class="sel">
+          <option value="asap">As soon as possible</option>
+          <option value="1-3">Within 1–3 months</option>
+          <option value="3-6">3–6 months</option>
+          <option value="6-12">6–12 months</option>
+          <option value="flexible">I'm flexible</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="sectitle">WHERE TO SEND YOUR OFFER</div>
+      <div class="grid2">
+        <div class="fld">
+          <label class="lbl">Full name *</label>
+          <input id="of-name" class="in" placeholder="Your name">
+          <div id="of-name-err" style="display:none;font:600 12.5px 'Manrope',sans-serif;color:#FF9B9B">Please enter your name.</div>
+        </div>
+        <div class="fld">
+          <label class="lbl">Phone *</label>
+          <input id="of-phone" class="in" type="tel" inputmode="tel" placeholder="(555) 123-4567">
+          <div id="of-phone-err" style="display:none;font:600 12.5px 'Manrope',sans-serif;color:#FF9B9B">Please enter a valid phone number.</div>
+        </div>
+      </div>
+      <div class="fld">
+        <label class="lbl">Email *</label>
+        <input id="of-email" class="in" type="email" inputmode="email" placeholder="you@email.com">
+        <div id="of-email-err" style="display:none;font:600 12.5px 'Manrope',sans-serif;color:#FF9B9B">Please enter a valid email.</div>
+      </div>
+      <div class="fld">
+        <label class="lbl">Anything else we should know? <span style="color:#5F7392;font-weight:500">(optional)</span></label>
+        <textarea id="of-notes" class="ta" rows="3" placeholder="Reason for selling, access notes, deadlines, anything that helps."></textarea>
+      </div>
+    </div>
+
+    <span id="of-submit" data-hover="background:#7ACBFF" style="background:#5AB8F5;color:#081426;font:700 16px 'Manrope',sans-serif;padding:17px;border-radius:12px;text-align:center;cursor:pointer">Get My Cash Offer →</span>
+    <div style="font:500 11.5px/1.6 'Manrope',sans-serif;color:#5F7392;text-align:center">No fees, no obligation, and your information is never sold or shared. A specialist reviews your details, runs real comparable sales, and follows up with a firm cash number.</div>
+  </div>
+</div>
+</div>
+
+<div id="site-footer"></div>
+
+<script>
+(function () {
+  var card = document.getElementById('offer-card');
+
+  // Prefill address carried from the homepage hero bar
+  try {
+    var pre = localStorage.getItem('fc-prefill-address');
+    var addr = document.getElementById('of-address');
+    if (pre && addr) { addr.value = pre; addr.dataset.addrValid = '1'; }
+  } catch (e) {}
+
+  // Issue toggle chips
+  document.querySelectorAll('#of-issues .chip').forEach(function (c) {
+    c.setAttribute('aria-pressed', 'false');
+    c.addEventListener('click', function () {
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+  });
+
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function show(id, on) { var el = document.getElementById(id); if (el) el.style.display = on ? 'block' : 'none'; }
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function logLead(payload) {
+    try {
+      var leads = JSON.parse(localStorage.getItem('fc-crm-leads') || '[]');
+      leads.push(payload);
+      localStorage.setItem('fc-crm-leads', JSON.stringify(leads)); // CRM sync point — swap for real endpoint
+    } catch (e) {}
+  }
+
+  document.getElementById('of-submit').addEventListener('click', function () {
+    var addrEl = document.getElementById('of-address');
+    var okAddr = window.FCG ? FCG.addressValid(addrEl) : (addrEl.value.trim().length > 5);
+    var okName = val('of-name').length >= 2;
+    var phone = val('of-phone').replace(/[^\d]/g, '');
+    var okPhone = phone.length >= 10;
+    var okEmail = emailRe.test(val('of-email'));
+
+    show('of-address-err', !okAddr);
+    show('of-name-err', !okName);
+    show('of-phone-err', !okPhone);
+    show('of-email-err', !okEmail);
+
+    if (!(okAddr && okName && okPhone && okEmail)) {
+      var first = document.querySelector('[id$="-err"][style*="block"]');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    var issues = [];
+    document.querySelectorAll('#of-issues .chip[aria-pressed="true"]').forEach(function (c) { issues.push(c.getAttribute('data-v')); });
+
+    logLead({
+      source: 'offer-intake',
+      ts: new Date().toISOString(),
+      address: addrEl.value.trim(),
+      type: val('of-type'), year: val('of-year'), beds: val('of-beds'), baths: val('of-baths'),
+      sqft: val('of-sqft'), lot: val('of-lot'), condition: val('of-cond'), issues: issues,
+      occupancy: val('of-occ'), onTitle: val('of-owner'), owed: val('of-owed'),
+      liens: val('of-liens'), priceExpectation: val('of-price'), timeline: val('of-timeline'),
+      name: val('of-name'), phone: val('of-phone'), email: val('of-email'), notes: val('of-notes')
+    });
+
+    card.innerHTML =
+      '<div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:44px 20px;text-align:center">' +
+        '<span style="width:60px;height:60px;border-radius:50%;background:#2EC98E1f;color:#2EC98E;display:flex;align-items:center;justify-content:center;font:800 26px \'Sora\',sans-serif">✓</span>' +
+        '<div style="font:800 26px \'Sora\',sans-serif;color:#fff">Got it — we\'re on it.</div>' +
+        '<div style="font:500 15px/1.65 \'Manrope\',sans-serif;color:#9FB0C9;max-width:420px">Thanks, ' + (val('of-name').split(' ')[0] || 'there') + '. A specialist is already reviewing your property and running comparable sales. You\'ll hear from us shortly with a firm, no-obligation cash number — no fees, no pressure.</div>' +
+        '<a href="index.html" data-hover="border-color:#5AB8F5;color:#fff" style="border:1px solid #ffffff26;color:#C9D6E8;font:700 14px \'Manrope\',sans-serif;padding:14px 26px;border-radius:11px;text-decoration:none;margin-top:4px">Back to home</a>' +
+      '</div>';
+    if (window.FCG) window.FCG.wireHover(card);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script src="assets/site.js" defer></script>
+</body>
+</html>
