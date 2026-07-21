@@ -4,19 +4,21 @@
 (function () {
   'use strict';
 
-  // New in-house logo (Option 1 — gradient "check badge", matches the site).
-  // Swap the mark path/color here to change it site-wide.
+  // Brand logo — twin-peak "rooflines" mark in the site's blue -> cyan gradient
+  // so it reads cleanly on the dark navy. Swap paths/colors here to change it
+  // site-wide (nav, footer, favicon derived from the same shape).
   function logoMark(id) {
-    return '<svg width="40" height="40" viewBox="0 0 46 46" style="flex-shrink:0" role="img" aria-label="The First Choice Group">' +
-      '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5AB8F5"/><stop offset="1" stop-color="#37C8E0"/></linearGradient></defs>' +
-      '<rect width="46" height="46" rx="13" fill="url(#' + id + ')"/>' +
-      '<path d="M13 24 L20 31 L34 15" fill="none" stroke="#081426" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    return '<svg width="62" height="28" viewBox="0 0 116 52" style="flex-shrink:0" role="img" aria-label="The First Choice Group">' +
+      '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9BD4FF"/><stop offset="0.55" stop-color="#5AB8F5"/><stop offset="1" stop-color="#37C8E0"/></linearGradient></defs>' +
+      '<path d="M8 44 L34 12 L60 44" fill="none" stroke="url(#' + id + ')" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M50 44 L76 12 L102 44" fill="none" stroke="url(#' + id + ')" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</svg>';
   }
   function logoLockup(id) {
     return logoMark(id) +
-      '<span style="display:flex;flex-direction:column;line-height:1">' +
-        '<span style="font:800 18px \'Sora\',sans-serif;color:#fff;letter-spacing:-.01em">First Choice</span>' +
-        '<span style="font:700 8.5px \'Manrope\',sans-serif;color:#7ACBFF;letter-spacing:.3em;margin-top:2px">GROUP</span>' +
+      '<span style="display:flex;flex-direction:column;line-height:1.05">' +
+        '<span style="font:800 16px \'Sora\',sans-serif;color:#fff;letter-spacing:.005em">First Choice Group</span>' +
+        '<span style="font:700 7.5px \'Manrope\',sans-serif;color:#7ACBFF;letter-spacing:.26em;margin-top:3px">REAL ESTATE SOLUTIONS</span>' +
       '</span>';
   }
 
