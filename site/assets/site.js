@@ -165,6 +165,10 @@
   /* -------------------------------------------------- chat widget */
   function chatAnswer(q) {
     var t = q.toLowerCase();
+    if (/looking to sell|sell my|want to sell|^sell\b/.test(t)) return "You're in the right place — we buy houses for cash, in any condition, with zero fees or commissions and a closing date you choose. The fastest way to a real number is our quick 3-minute offer form. Tap 'Get Your Cash Offer' below to start — or ask me anything first.";
+    if (/looking to buy|buy a|purchase|inventory|off.?market/.test(t)) return "For buyers and investors we offer financing — fix-and-flip, bridge, and rental (DSCR) loans — and occasionally have off-market properties. Are you funding a deal or looking for inventory? Tell me a bit more and I'll point you the right way.";
+    if (/lending|funding|loan|lend|flip|invest|rehab|financ|rate/.test(t)) return "We fund investors: fix-and-flip up to 90% of purchase and 100% of rehab, plus bridge and 30-year rental loans — term sheets in 24 hours. See the Loan Programs page, or share your deal and a loan specialist will follow up.";
+    if (/^other|something else|just looking|not sure/.test(t)) return "No problem — I can help with selling a property, buying or funding a deal, timelines, fees, or anything else. What's on your mind?";
     if (/fee|commission|cost|charge/.test(t)) return "Zero. No commissions, no fees, and we pay all closing costs. The offer you accept is the amount you walk away with — we can put that in writing.";
     if (/foreclos/.test(t)) return "We help sellers in pre-foreclosure all the time. Because we buy in cash with no financing contingencies, we can often close before an auction date — sometimes in as little as 10 days. Want me to start a no-obligation offer for your property?";
     if (/probate|inherit|estate/.test(t)) return "Inherited properties are one of our specialties. We coordinate with your probate attorney, buy fully as-is (belongings can stay), and time the closing around the court process. No cleanout needed.";
@@ -186,16 +190,26 @@
     var state = {
       open: false,
       typing: false,
-      msgs: [{ who: 'ai', text: "Hi, I'm the First Choice AI assistant. I can answer questions about selling your house for cash, timelines, fees, or investor financing — 24/7. What's on your mind?" }]
+      unread: 1,
+      msgs: [{ who: 'ai', text: "Hi 👋 Welcome to The First Choice Group! I'm here to help — what brings you in today?" }]
     };
     var scrollEl;
 
     function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
     function render() {
-      var chips = state.msgs.length <= 2
-        ? ["How fast can you close?", "Do you charge fees?", "I'm facing foreclosure", "What's my house worth?"]
-        : [];
+      var qr = state.msgs.length <= 1
+        ? { big: true, items: [
+            { label: 'Looking to Sell', send: 'Looking to Sell' },
+            { label: 'Looking to Buy', send: 'Looking to Buy' },
+            { label: 'Lending / Funding', send: 'Lending / Funding' },
+            { label: 'Other', send: 'Other' }
+          ] }
+        : { big: false, items: [
+            { label: 'How fast can you close?', send: 'How fast can you close?' },
+            { label: 'Do you charge fees?', send: 'Do you charge fees?' },
+            { label: 'Get Your Cash Offer →', nav: '/offer' }
+          ] };
 
       var msgHtml = state.msgs.map(function (m) {
         var ai = m.who === 'ai';
@@ -211,17 +225,32 @@
         msgHtml += '<div style="align-self:flex-start;background:#ffffff12;border-radius:14px 14px 14px 4px;padding:12px 16px;color:#8DA0BC;font:600 13px \'Manrope\',sans-serif;letter-spacing:2px">&bull;&bull;&bull;</div>';
       }
 
-      var chipsHtml = chips.map(function (c, i) {
-        return '<span data-chip="' + i + '" data-hover="background:#5AB8F51f" style="border:1px solid #5AB8F566;color:#7ACBFF;font:600 11.5px \'Manrope\',sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer">' + esc(c) + '</span>';
-      }).join('');
+      var chipsHtml;
+      if (qr.big) {
+        var bp = "font:700 14px 'Manrope',sans-serif;padding:13px 16px;border-radius:12px;cursor:pointer;text-align:center";
+        var hp = "flex:1;font:700 12.5px 'Manrope',sans-serif;padding:11px;border-radius:12px;cursor:pointer;text-align:center";
+        chipsHtml = '<div style="display:flex;flex-direction:column;gap:8px;width:100%">' +
+          '<span data-qr="0" data-hover="background:#7ACBFF" style="background:#5AB8F5;color:#081426;' + bp + '">' + esc(qr.items[0].label) + '</span>' +
+          '<span data-qr="1" data-hover="border-color:#5AB8F5;color:#fff" style="border:1px solid #5AB8F566;color:#C9D6E8;' + bp + '">' + esc(qr.items[1].label) + '</span>' +
+          '<div style="display:flex;gap:8px">' +
+            '<span data-qr="2" data-hover="border-color:#5AB8F5;color:#fff" style="border:1px solid #ffffff26;color:#C9D6E8;' + hp + '">' + esc(qr.items[2].label) + '</span>' +
+            '<span data-qr="3" data-hover="border-color:#5AB8F5;color:#fff" style="border:1px solid #ffffff26;color:#C9D6E8;' + hp + '">' + esc(qr.items[3].label) + '</span>' +
+          '</div>' +
+        '</div>';
+      } else {
+        chipsHtml = qr.items.map(function (it, i) {
+          var navStyle = it.nav ? 'background:#5AB8F51f;' : '';
+          return '<span data-qr="' + i + '" data-hover="background:#5AB8F51f" style="' + navStyle + 'border:1px solid #5AB8F566;color:#7ACBFF;font:600 11.5px \'Manrope\',sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer">' + esc(it.label) + '</span>';
+        }).join('');
+      }
 
       var panel = state.open ?
         '<div style="width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 120px);background:#0E2240;border:1px solid #ffffff1f;border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55);display:flex;flex-direction:column;overflow:hidden">' +
           '<div style="padding:16px 18px;background:#0B1B33;border-bottom:1px solid #ffffff14;display:flex;align-items:center;gap:12px">' +
             '<span style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#5AB8F5,#37C8E0);display:flex;align-items:center;justify-content:center;font:800 15px \'Sora\',sans-serif;color:#081426">&#9672;</span>' +
             '<span style="display:flex;flex-direction:column;gap:2px">' +
-              '<span style="font:700 14px \'Sora\',sans-serif;color:#fff">First Choice AI</span>' +
-              '<span style="display:flex;align-items:center;gap:6px;font:600 11px \'Manrope\',sans-serif;color:#2EC98E"><span style="width:6px;height:6px;border-radius:50%;background:#2EC98E"></span>Online 24/7</span>' +
+              '<span style="font:700 14px \'Sora\',sans-serif;color:#fff">First Choice Group</span>' +
+              '<span style="display:flex;align-items:center;gap:6px;font:600 11px \'Manrope\',sans-serif;color:#2EC98E"><span style="width:6px;height:6px;border-radius:50%;background:#2EC98E"></span>Online Agent</span>' +
             '</span>' +
             '<span id="chat-close" data-hover="color:#fff" style="margin-left:auto;color:#8DA0BC;cursor:pointer;font:600 18px \'Manrope\',sans-serif;padding:4px 8px">&times;</span>' +
           '</div>' +
@@ -236,13 +265,16 @@
       host.innerHTML =
         '<div style="position:fixed;bottom:24px;right:24px;z-index:100;display:flex;flex-direction:column;align-items:flex-end;gap:14px;font-family:\'Manrope\',sans-serif">' +
           panel +
-          '<div id="chat-fab" data-hover="transform:scale(1.06)" style="width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#5AB8F5,#37C8E0);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 14px 40px rgba(90,184,245,.4);font:800 22px \'Sora\',sans-serif;color:#081426">' + (state.open ? '&times;' : '&#9672;') + '</div>' +
+          '<div id="chat-fab" data-hover="transform:scale(1.06)" style="position:relative;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#5AB8F5,#37C8E0);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 14px 40px rgba(90,184,245,.4);font:800 22px \'Sora\',sans-serif;color:#081426">' + (state.open ? '&times;' : '&#9672;') +
+            (!state.open ? '<span style="position:absolute;bottom:3px;right:3px;width:12px;height:12px;border-radius:50%;background:#2EC98E;border:2px solid #fff"></span>' : '') +
+            (!state.open && state.unread ? '<span style="position:absolute;top:-3px;left:-3px;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:#0B1B33;color:#fff;border:2px solid #081426;display:flex;align-items:center;justify-content:center;font:800 12px \'Manrope\',sans-serif">' + state.unread + '</span>' : '') +
+          '</div>' +
         '</div>';
 
       wireHover(host);
 
       document.getElementById('chat-fab').addEventListener('click', function () {
-        state.open = !state.open; render(); scrollDown();
+        state.open = !state.open; if (state.open) state.unread = 0; render(); scrollDown();
       });
       if (state.open) {
         document.getElementById('chat-close').addEventListener('click', function () { state.open = false; render(); });
@@ -250,8 +282,12 @@
         var send = function () { doSend(input.value); };
         document.getElementById('chat-send').addEventListener('click', send);
         input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
-        host.querySelectorAll('[data-chip]').forEach(function (c) {
-          c.addEventListener('click', function () { doSend(chips[+c.getAttribute('data-chip')]); });
+        host.querySelectorAll('[data-qr]').forEach(function (el) {
+          el.addEventListener('click', function () {
+            var it = qr.items[+el.getAttribute('data-qr')];
+            if (it.nav) { window.location.href = it.nav; return; }
+            doSend(it.send || it.label);
+          });
         });
         scrollEl = document.getElementById('chat-scroll');
         scrollDown();
