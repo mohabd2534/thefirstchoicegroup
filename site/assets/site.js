@@ -21,11 +21,11 @@
   }
 
   var SITUATIONS = [
-    ['just-selling.html', 'Just Looking to Sell'],
-    ['foreclosure.html', 'Facing Foreclosure'],
-    ['repairs.html', 'Too Many Repairs'],
-    ['probate.html', 'Inherited &amp; Probate'],
-    ['relocation.html', 'Relocation &amp; Divorce']
+    ['/just-selling', 'Just Looking to Sell'],
+    ['/foreclosure', 'Facing Foreclosure'],
+    ['/repairs', 'Too Many Repairs'],
+    ['/probate', 'Inherited &amp; Probate'],
+    ['/relocation', 'Relocation &amp; Divorce']
   ];
 
   /* -------------------------------------------------- hover effects
@@ -68,28 +68,28 @@
     host.innerHTML =
       '<div style="position:sticky;top:0;z-index:80;background:#081426F0;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #ffffff14">' +
       '<div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:12px 32px">' +
-        '<a href="index.html" style="display:flex;align-items:center;gap:11px;text-decoration:none">' + logoLockup('fcg-nav') + '</a>' +
+        '<a href="/" style="display:flex;align-items:center;gap:11px;text-decoration:none">' + logoLockup('fcg-nav') + '</a>' +
         '<div class="nav-links" style="display:flex;align-items:center;gap:30px;font:600 14.5px \'Manrope\',sans-serif">' +
-          '<a href="index.html" data-hover="color:#7ACBFF" style="color:#C9D6E8;text-decoration:none">Home</a>' +
+          '<a href="/" data-hover="color:#7ACBFF" style="color:#C9D6E8;text-decoration:none">Home</a>' +
           '<span style="position:relative">' +
             '<span id="nav-sit" data-hover="color:#7ACBFF" style="color:#C9D6E8;cursor:pointer;display:flex;align-items:center;gap:6px">Situations <span style="font-size:10px">&#9660;</span></span>' +
             '<div id="nav-sit-menu" style="display:none;position:absolute;top:34px;left:-12px;background:#0E2240;border:1px solid #ffffff1f;border-radius:14px;padding:8px;flex-direction:column;gap:2px;min-width:230px;box-shadow:0 20px 50px rgba(0,0,0,.5)">' + dropdown + '</div>' +
           '</span>' +
-          '<a href="loan-programs.html" data-hover="color:#7ACBFF" style="color:#C9D6E8;text-decoration:none">Loan Programs</a>' +
-          '<a href="about.html" data-hover="color:#7ACBFF" style="color:#C9D6E8;text-decoration:none">About</a>' +
-          '<a href="contact.html" data-hover="color:#7ACBFF" style="color:#C9D6E8;text-decoration:none">Contact</a>' +
+          '<a href="/loan-programs" data-hover="color:#7ACBFF" style="color:#C9D6E8;text-decoration:none">Loan Programs</a>' +
+          '<a href="/about" data-hover="color:#7ACBFF" style="color:#C9D6E8;text-decoration:none">About</a>' +
+          '<a href="/contact" data-hover="color:#7ACBFF" style="color:#C9D6E8;text-decoration:none">Contact</a>' +
         '</div>' +
-        '<a class="nav-cta" href="offer.html" data-hover="background:#7ACBFF" style="background:#5AB8F5;color:#081426;font:700 14px \'Manrope\',sans-serif;padding:12px 22px;border-radius:11px;text-decoration:none;white-space:nowrap;box-shadow:0 6px 18px rgba(90,184,245,.25)">Get Your Cash Offer</a>' +
+        '<a class="nav-cta" href="/offer" data-hover="background:#7ACBFF" style="background:#5AB8F5;color:#081426;font:700 14px \'Manrope\',sans-serif;padding:12px 22px;border-radius:11px;text-decoration:none;white-space:nowrap;box-shadow:0 6px 18px rgba(90,184,245,.25)">Get Your Cash Offer</a>' +
         '<span class="nav-toggle" id="nav-toggle" style="width:42px;height:42px;border-radius:10px;background:#ffffff10;align-items:center;justify-content:center;cursor:pointer;color:#C9D6E8;font-size:20px">&#9776;</span>' +
       '</div>' +
       '<div class="mobile-menu" id="mobile-menu" style="flex-direction:column;gap:4px;padding:8px 20px 18px;border-top:1px solid #ffffff12;background:#0B1B33">' +
-        mobileLink('index.html', 'Home') +
+        mobileLink('/', 'Home') +
         '<div style="font:700 11px \'Manrope\',sans-serif;color:#5AB8F5;letter-spacing:.08em;padding:12px 8px 4px">SITUATIONS</div>' +
         SITUATIONS.map(function (s) { return mobileLink(s[0], s[1], true); }).join('') +
-        mobileLink('loan-programs.html', 'Loan Programs') +
-        mobileLink('about.html', 'About') +
-        mobileLink('contact.html', 'Contact') +
-        '<a href="offer.html" style="margin-top:10px;background:#5AB8F5;color:#081426;font:700 14px \'Manrope\',sans-serif;padding:14px;border-radius:11px;text-decoration:none;text-align:center">Get Your Cash Offer</a>' +
+        mobileLink('/loan-programs', 'Loan Programs') +
+        mobileLink('/about', 'About') +
+        mobileLink('/contact', 'Contact') +
+        '<a href="/offer" style="margin-top:10px;background:#5AB8F5;color:#081426;font:700 14px \'Manrope\',sans-serif;padding:14px;border-radius:11px;text-decoration:none;text-align:center">Get Your Cash Offer</a>' +
       '</div>' +
       '</div>';
 
@@ -134,24 +134,24 @@
         '</div>' +
         '<div style="display:flex;flex-direction:column;gap:12px">' +
           '<div style="font:700 13px \'Sora\',sans-serif;color:#fff;letter-spacing:.06em;margin-bottom:4px">SOLUTIONS</div>' +
-          link('just-selling.html', 'Just Looking to Sell') +
-          link('foreclosure.html', 'Facing Foreclosure') +
-          link('repairs.html', 'Too Many Repairs') +
-          link('probate.html', 'Inherited &amp; Probate') +
-          link('relocation.html', 'Relocation &amp; Divorce') +
+          link('/just-selling', 'Just Looking to Sell') +
+          link('/foreclosure', 'Facing Foreclosure') +
+          link('/repairs', 'Too Many Repairs') +
+          link('/probate', 'Inherited &amp; Probate') +
+          link('/relocation', 'Relocation &amp; Divorce') +
         '</div>' +
         '<div style="display:flex;flex-direction:column;gap:12px">' +
           '<div style="font:700 13px \'Sora\',sans-serif;color:#fff;letter-spacing:.06em;margin-bottom:4px">COMPANY</div>' +
-          link('about.html', 'About Us') +
-          link('loan-programs.html', 'Loan Programs') +
-          link('contact.html', 'Contact') +
-          link('faq.html', 'Common Questions') +
-          link('estimator.html', 'Instant Offer Estimator') +
+          link('/about', 'About Us') +
+          link('/loan-programs', 'Loan Programs') +
+          link('/contact', 'Contact') +
+          link('/faq', 'Common Questions') +
+          link('/estimator', 'Instant Offer Estimator') +
         '</div>' +
         '<div style="display:flex;flex-direction:column;gap:14px">' +
           '<div style="font:700 13px \'Sora\',sans-serif;color:#fff;letter-spacing:.06em;margin-bottom:4px">GET STARTED</div>' +
           '<div style="font:500 13px/1.6 \'Manrope\',sans-serif;color:#8DA0BC">Your no-obligation cash offer is one address away.</div>' +
-          '<a href="offer.html" data-hover="background:#7ACBFF;color:#081426" style="background:#5AB8F5;color:#081426;font:700 14px \'Manrope\',sans-serif;padding:13px 20px;border-radius:11px;text-decoration:none;text-align:center">Get Your Cash Offer</a>' +
+          '<a href="/offer" data-hover="background:#7ACBFF;color:#081426" style="background:#5AB8F5;color:#081426;font:700 14px \'Manrope\',sans-serif;padding:13px 20px;border-radius:11px;text-decoration:none;text-align:center">Get Your Cash Offer</a>' +
           '<div style="display:flex;align-items:center;gap:8px;font:600 12px \'Manrope\',sans-serif;color:#8DA0BC"><span style="background:#00548F;color:#fff;font:800 11px \'Sora\',sans-serif;padding:4px 7px;border-radius:4px;letter-spacing:.02em">BBB</span> A+ Accredited Business</div>' +
         '</div>' +
       '</div>' +

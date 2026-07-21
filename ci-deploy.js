@@ -21,10 +21,10 @@ function walk(dir, base) {
   }
   return out;
 }
-const SKIP = new Set(['vercel.json', 'README.md']);
+const SKIP = new Set(['README.md']);
 const files = walk(SRC, '')
   .filter(f => !SKIP.has(f.rel))
-  .filter(f => f.rel.endsWith('.html') || f.rel.startsWith('assets/'))
+  .filter(f => f.rel.endsWith('.html') || f.rel.startsWith('assets/') || f.rel === 'vercel.json')
   .map(f => ({ file: f.rel, data: fs.readFileSync(f.full, 'utf8'), encoding: 'utf-8' }));
 
 (async () => {
